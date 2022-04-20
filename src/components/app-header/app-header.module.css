@@ -1,0 +1,38 @@
+.header {
+    margin: 40px 40px 0 40px;
+    display: flex;
+    position: relative;
+    background-color: #1C1C21;
+}
+
+.logo {
+    position: absolute;
+    top: 16px;
+    left: 50%;                      
+    transform: translateX(-50%);
+}
+
+.label {
+    margin-left:8px;
+}
+
+.button {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    margin: 16px 8px 16px 0;
+    border-radius: 50px;
+    text-decoration: none;
+    color: #8585AD;
+}
+
+.active__button {
+    composes: button;
+    color: white;
+}
+
+.button:last-child {
+    margin-left: auto;
+    margin-right: 0;
+}
+
