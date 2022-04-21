@@ -1,0 +1,11 @@
+.wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-left: 16px;
+    border: 1px solid white;
+}
+
+.order_button_wrap {
+    width: 215px;
+}

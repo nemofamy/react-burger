@@ -1,4 +1,26 @@
 .wrap {
-    border: 1px solid red;
-    background-color: red;
+    padding-top: 40px;
+    margin-right: 40px;
+    width: 600px;
+}
+
+.main_header {
+    text-align: left;
+}
+
+.dishtype_section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px 8px;
+    padding-bottom: 40px;
+}
+
+.tab_bar {
+    display: flex;
+    margin: 20px 0 40px;
+}
+
+.section_header {
+    width: 100%;
+    text-align: left;
 }
