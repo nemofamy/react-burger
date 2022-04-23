@@ -3,22 +3,18 @@ import styles from './ingredient-item.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modals/modal';
 import SmallInfoBlock from './small-info-block';
-import ModalOverlay from '../modals/modal-overlay';
 import PropTypes from 'prop-types';
 
 function IngredientItem (props) {
     const { carbohydrates, proteins, fat, calories, name, image, image_large, price, __v } = props.dataset;
     const [isModalVisible, setModalVisibility] = React.useState(false);
-    const [isOverlayActive, setOverlayActive] = React.useState(false);
 
     const openModal = () => {
         setModalVisibility(true);
-        setOverlayActive(true);
     }
 
     const closeModal = () => {
         setModalVisibility(false);
-        setOverlayActive(false);
     }
 
     return (
@@ -35,7 +31,6 @@ function IngredientItem (props) {
             
             {   isModalVisible &&
                 <>
-                    <ModalOverlay closeModal={closeModal} isActive={isOverlayActive}/>
                     <Modal closeModal={closeModal} isVisible={isModalVisible} header="Детали ингредиента">
                         <div className={styles.wrap}>
                             <img alt={name} src={image_large} />

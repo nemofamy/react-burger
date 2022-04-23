@@ -3,7 +3,6 @@ import { ConstructorElement, Button }  from '@ya.praktikum/react-developer-burge
 import { CheckMarkIcon, DragIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
 import Modal from '../modals/modal';
-import ModalOverlay from '../modals/modal-overlay';
 import doneIcon from '../../img/order-modal/doneicon.png';
 import PropTypes from 'prop-types';
 
@@ -11,16 +10,13 @@ function BurgerConstructor (props) {
     const data = props.data;
 
     const [isModalVisible, setModalVisibility] = React.useState(false);
-    const [isOverlayActive, setOverlayActive] = React.useState(false);
 
     const openModal = () => {
         setModalVisibility(true);
-        setOverlayActive(true);
     }
 
     const closeModal = () => {
         setModalVisibility(false);
-        setOverlayActive(false);
     }
 
     return (
@@ -76,7 +72,6 @@ function BurgerConstructor (props) {
 
             {   isModalVisible &&
                 <>
-                    <ModalOverlay closeModal={closeModal} isActive={isOverlayActive}/>
                     <Modal closeModal={closeModal} isVisible={isModalVisible} header="">
                         <div className={styles.wrap_modal}>
                             <p className={`${styles.order_number} text text_type_digits-large mb-8 mt-30`}>034536</p>

@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 
 function BurgerIngredients (props) {
-    const [current, setCurrent] = React.useState('bun');
+    const current = 'bun';
 
     function renderIngredients(array, categoryName) {
         return array.map((ingredient, index)=>(
