@@ -15,15 +15,21 @@ function App() {
       const getData = async () => {
          try {
             const res = await fetch(BURGER_API_ADDRESS);
-            const dataset = await res.json();
-            if (dataset.success) {
-               setData(dataset.data);
+            if (res.ok) {
+               const dataset = await res.json();
+               if (dataset.success) {
+                  setData(dataset.data);
+               }
+            } else {
+               console.log('Неудачный запрос данных');
+               return Promise.reject(res);
             }
          } catch (err) {
             console.log(`Что-то пошло не так: ${err}`);
          }
       }
       getData();
+      
    },[]);
 
    return (

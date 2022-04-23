@@ -12,9 +12,9 @@ function Button (props) {
 }
 
 Button.propTypes = {
-    activePage: PropTypes.string,
-    label: PropTypes.string,
-    href: PropTypes.string,
+    activePage: PropTypes.string.isRequired,
+    label: PropTypes.string.isRequired,
+    href: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired
 }
 

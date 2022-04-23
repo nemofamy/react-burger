@@ -29,7 +29,7 @@ function AppHeader (props) {
 }
 
 AppHeader.propTypes = {
-    activePage: PropTypes.string
+    activePage: PropTypes.string.isRequired
 }
 
 export default AppHeader;

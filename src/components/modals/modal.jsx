@@ -27,10 +27,10 @@ function Modal (props) {
 
     return ReactDOM.createPortal(
         <>
-            <ModalOverlay closeModal={closeModal}/>
             {
                 isVisible &&
                 <>
+                    <ModalOverlay closeModal={closeModal}/>
                     <div className={styles.modal} >
                         <div onClick={closeModal} className={styles.close_button}>
                             <CloseIcon type="primary" />
@@ -48,9 +48,9 @@ function Modal (props) {
 }
 
 Modal.propTypes = {
-    closeModal: PropTypes.func,
-    isVisible: PropTypes.bool,
-    header: PropTypes.string,
+    closeModal: PropTypes.func.isRequired,
+    isVisible: PropTypes.bool.isRequired,
+    header: PropTypes.string.isRequired,
     children: PropTypes.node.isRequired
 }
 

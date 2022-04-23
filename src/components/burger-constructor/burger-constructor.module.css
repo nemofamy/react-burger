@@ -3,19 +3,27 @@
     flex-direction: column;
     gap: 10px;
     align-items: flex-end;
-    height: calc(100vh - 275px);
-    overflow-y: scroll;
+    height: calc(100vh - 230px);
 }
 
-.wrap::-webkit-scrollbar {
+.scroll_container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow-y: scroll;
+    min-height: 350px;
+    width: 100%;
+}
+
+.scroll_container::-webkit-scrollbar {
     width: 8px;               
 }
   
-.wrap::-webkit-scrollbar-track {
+.scroll_container::-webkit-scrollbar-track {
     background: #2F2F37;       
 }
 
-.wrap::-webkit-scrollbar-thumb {
+.scroll_container::-webkit-scrollbar-thumb {
     background-color: #8585AD;    
 }
 
@@ -30,11 +38,22 @@
 }
 
 .burger_element {
+    align-self: flex-start;
     display: flex;
     align-items: center;
     gap: 8px;
     width: 100%;
     cursor: pointer;
+}
+
+.burger_element_top {
+    margin-left: 25px;
+    margin-right: 22px;
+}
+
+.burger_element_bottom {
+    margin-left: 25px;
+    margin-right: 22px;
 }
 
 .burger_element:first-child {
@@ -52,28 +71,3 @@
     width: 33px;
 }
 
-.wrap_modal {
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.order_number {
-    text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25), 0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
-}
-
-.check_icon svg {
-    margin: auto;
-    height: 48px;
-    width: 48px;
-}
-
-.check_icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 120px;
-    width: 120px;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
