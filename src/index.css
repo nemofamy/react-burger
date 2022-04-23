@@ -7,11 +7,11 @@
 
 
 body {
-  margin: 0;
+  margin: 0 auto;
   font-family: 'JetBrainsMono';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  min-width: 1260px;
+  min-width: 1340px;
 }
 
 code {
