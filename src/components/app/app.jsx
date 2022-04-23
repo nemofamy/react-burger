@@ -1,9 +1,8 @@
 import React from 'react';
-import { setConstantValue } from 'typescript';
-import './App.css';
-import AppHeader from './components/app-header/app-header';
-import BurgerConstructor from './components/burger-constructor/burger-constructor';
-import BurgerIngredients from './components/burger-ingredients/burger-ingredients';
+import styles from './app.module.css';
+import AppHeader from '../app-header/app-header';
+import BurgerConstructor from '../burger-constructor/burger-constructor';
+import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 
 
 const BURGER_API_ADDRESS = 'https://norma.nomoreparties.space/api/ingredients';
@@ -28,14 +27,13 @@ function App() {
    },[]);
 
    return (
-    <div className="App">
-
+    <>
       <AppHeader activePage="Конструктор" />
-      <main className="App-main-content">
+      <main className={styles.app_main_content}>
          <BurgerIngredients data={data} />
          <BurgerConstructor data={data} />
       </main>
-    </div>
+    </>
    );
 }
 
