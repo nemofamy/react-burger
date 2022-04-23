@@ -30,7 +30,7 @@ function App() {
    return (
     <div className="App">
 
-      <AppHeader />
+      <AppHeader activePage="Конструктор" />
       <main className="App-main-content">
          <BurgerIngredients data={data} />
          <BurgerConstructor data={data} />
