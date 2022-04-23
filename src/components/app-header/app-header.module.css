@@ -1,5 +1,4 @@
 .header {
-    margin: 40px 40px 0 40px;
     background-color: #1C1C21;
     position: relative;
 }
@@ -15,9 +14,3 @@
     left: 50%;                      
     transform: translateX(-50%);
 }
-
-.label {
-    margin-left:8px;
-}
-
-

@@ -6,6 +6,7 @@ import BurgerConstructor from './components/burger-constructor/burger-constructo
 import BurgerIngredients from './components/burger-ingredients/burger-ingredients';
 
 
+const BURGER_API_ADDRESS = 'https://norma.nomoreparties.space/api/ingredients';
 
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
    React.useEffect(() => {
       const getData = async () => {
          try {
-            const res = await fetch('https://norma.nomoreparties.space/api/ingredients');
+            const res = await fetch(BURGER_API_ADDRESS);
             const dataset = await res.json();
             if (dataset.success) {
                setData(dataset.data);
@@ -28,10 +29,11 @@ function App() {
 
    return (
     <div className="App">
+
       <AppHeader />
       <main className="App-main-content">
          <BurgerIngredients data={data} />
-
+         <BurgerConstructor data={data} />
       </main>
     </div>
    );

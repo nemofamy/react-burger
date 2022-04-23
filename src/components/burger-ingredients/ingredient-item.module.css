@@ -1,0 +1,31 @@
+.ingredient_item {
+    width: 272px;
+    position: relative;
+    cursor: pointer;
+}
+
+.cost_block {
+    display: flex;
+    justify-content: center;
+    margin: 4px 0;
+}
+
+.dish_name {
+    height: 48px;
+    text-align: center;
+}
+
+.wrap {
+    display:flex;
+    flex-direction: column;
+}
+
+.info {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.dish_name_modal {
+    text-align: center;
+}

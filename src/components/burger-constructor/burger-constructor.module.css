@@ -2,10 +2,77 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding-left: 16px;
-    border: 1px solid white;
+    align-items: flex-end;
+    height: calc(100vh - 275px);
+    overflow-y: scroll;
+}
+
+.wrap::-webkit-scrollbar {
+    width: 8px;               
+}
+  
+.wrap::-webkit-scrollbar-track {
+    background: #2F2F37;       
+}
+
+.wrap::-webkit-scrollbar-thumb {
+    background-color: #8585AD;    
 }
 
 .order_button_wrap {
     width: 215px;
+}
+
+.checkout_line {
+    display: flex;
+    align-items: center;
+    height: 64px;
+}
+
+.burger_element {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+}
+
+.burger_element:first-child {
+    width: auto;
+}
+
+.cost_element {
+    display: flex;
+   
+}
+
+.cost_icon svg {
+    margin-left: 8px;
+    height: 33px;
+    width: 33px;
+}
+
+.wrap_modal {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.order_number {
+    text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25), 0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
+}
+
+.check_icon svg {
+    margin: auto;
+    height: 48px;
+    width: 48px;
+}
+
+.check_icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 120px;
+    width: 120px;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

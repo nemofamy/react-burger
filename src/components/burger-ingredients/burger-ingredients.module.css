@@ -1,6 +1,4 @@
 .wrap {
-    padding-top: 40px;
-    margin-right: 40px;
     width: 600px;
 }
 
@@ -12,15 +10,30 @@
     display: flex;
     flex-wrap: wrap;
     gap: 32px 8px;
-    padding-bottom: 40px;
 }
 
 .tab_bar {
     display: flex;
-    margin: 20px 0 40px;
 }
 
 .section_header {
     width: 100%;
     text-align: left;
+}
+
+.scrollWrap {
+    height: calc(100vh - 370px);
+    overflow-y: scroll;
+}
+
+.scrollWrap::-webkit-scrollbar {
+    width: 8px;               
+}
+  
+.scrollWrap::-webkit-scrollbar-track {
+    background: #2F2F37;       
+}
+
+.scrollWrap::-webkit-scrollbar-thumb {
+    background-color: #8585AD;    
 }

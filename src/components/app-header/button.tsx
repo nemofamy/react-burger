@@ -1,18 +1,21 @@
 import React from 'react';
-import { BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import Typography from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './button.module.css'
-import { createModuleResolutionCache } from 'typescript';
+import PropTypes from 'prop-types';
 
 function Button (props) {
     return (
-        <a href={props.href} className={styles.button}>
-                {props.iconType === 'burger' && <BurgerIcon type={props.isActive ? 'primary' : 'secondary'} />}
-                {props.iconType === 'list' && <ListIcon type={props.isActive ? 'primary' : 'secondary'} />}
-                {props.iconType === 'profile' && <ProfileIcon type={props.isActive ? 'primary' : 'secondary'} />}
-                <p className={`${styles.label} text text_type_main-default ${!props.isActive && 'text_color_inactive'}`}>{props.label}</p>
+        <a href={props.href} className={`${styles.button} mb-4 mt-4 mr-2 pl-5 pr-5`}>
+                {props.children}
+                <p className={`ml-2 text text_type_main-default ${!(props.activePage === props.label) && 'text_color_inactive'}`}>{props.label}</p>
         </a>
     );
+}
+
+Button.propTypes = {
+    activePage: PropTypes.string,
+    label: PropTypes.string,
+    href: PropTypes.string,
+    children: PropTypes.node.isRequired
 }
 
 export default Button;
