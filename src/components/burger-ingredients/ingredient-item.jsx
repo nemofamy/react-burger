@@ -2,23 +2,19 @@ import React from 'react';
 import styles from './ingredient-item.module.css';
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../modals/modal';
-import SmallInfoBlock from './small-info-block';
-import ModalOverlay from '../modals/modal-overlay';
-import PropTypes from 'prop-types';
+import ingredientShape from '../../utils/types';
+import IngredientDetails from '../modals/ingredient-details';
 
 function IngredientItem (props) {
     const { carbohydrates, proteins, fat, calories, name, image, image_large, price, __v } = props.dataset;
     const [isModalVisible, setModalVisibility] = React.useState(false);
-    const [isOverlayActive, setOverlayActive] = React.useState(false);
 
     const openModal = () => {
         setModalVisibility(true);
-        setOverlayActive(true);
     }
 
     const closeModal = () => {
         setModalVisibility(false);
-        setOverlayActive(false);
     }
 
     return (
@@ -35,17 +31,15 @@ function IngredientItem (props) {
             
             {   isModalVisible &&
                 <>
-                    <ModalOverlay closeModal={closeModal} isActive={isOverlayActive}/>
                     <Modal closeModal={closeModal} isVisible={isModalVisible} header="Детали ингредиента">
                         <div className={styles.wrap}>
-                            <img alt={name} src={image_large} />
-                            <h3 className={`${styles.dish_name} text text_type_main-medium`}>{name}</h3>
-                            <div className={`${styles.info} mb-15`}>
-                                <SmallInfoBlock header="Калории,ккал" text={calories} />
-                                <SmallInfoBlock header="Белки, г" text={proteins} />
-                                <SmallInfoBlock header="Жиры, г" text={fat} />
-                                <SmallInfoBlock header="Углеводы, г" text={carbohydrates} />
-                            </div> 
+                            <IngredientDetails 
+                                name={name} 
+                                image_large={image_large} 
+                                calories={calories} 
+                                proteins={proteins} 
+                                fat={fat} 
+                                carbohydrates={carbohydrates} />
                         </div>      
                     </Modal>
                 </>
@@ -56,20 +50,7 @@ function IngredientItem (props) {
 }
 
 IngredientItem.propTypes = {
-    dataset: PropTypes.shape({
-        calories: PropTypes.number,
-        carbohydrates: PropTypes.number,
-        fat: PropTypes.number,
-        image: PropTypes.string,
-        image_large: PropTypes.string,
-        image_mobile: PropTypes.string,
-        name: PropTypes.string,
-        price: PropTypes.number,
-        proteins: PropTypes.number,
-        type: PropTypes.string,
-        __v: PropTypes.number,
-        _id: PropTypes.string
-    })
+    dataset: ingredientShape.isRequired
 }
 
 export default IngredientItem;

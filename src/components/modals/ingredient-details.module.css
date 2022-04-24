@@ -1,0 +1,10 @@
+.info {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.dish_name {
+    height: 48px;
+    text-align: center;
+}

@@ -14,8 +14,8 @@ function SmallInfoBlock(props) {
 }
 
 SmallInfoBlock.propsType = {
-    header: PropTypes.string,
-    text: PropTypes.number
+    header: PropTypes.string.isRequired,
+    text: PropTypes.number.isRequired
 }
 
 export default SmallInfoBlock;
