@@ -4,7 +4,7 @@ import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import { getInitialData } from '../../services/get-initial-data';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 function App() {
    const dispatch = useDispatch();
@@ -13,14 +13,12 @@ function App() {
       dispatch(getInitialData());
    },[dispatch]);
 
-   const data = useSelector(store => store.data); 
-
    return (
     <>
       <AppHeader activePage="Конструктор" />
       <main className={styles.app_main_content}>
-         <BurgerIngredients data={data} />
-         <BurgerConstructor data={data} />
+         <BurgerIngredients />
+         <BurgerConstructor />
       </main>
     </>
    );

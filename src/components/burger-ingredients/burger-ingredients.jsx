@@ -4,13 +4,16 @@ import IngredientItem from './ingredient-item';
 import styles from './burger-ingredients.module.css';
 import PropTypes from 'prop-types';
 import ingredientShape from '../../utils/types';
+import { useSelector } from 'react-redux';
 
 
-function BurgerIngredients (props) {
+function BurgerIngredients () {
+
+    const data = useSelector(store => store.getData.data);
     const current = 'bun';
 
     function renderIngredients(array, categoryName) {
-        return array.map((ingredient, index)=>(
+        return array.map((ingredient)=>(
             ingredient.type === categoryName &&
                 <IngredientItem key={ingredient._id} dataset={ingredient} />
         ));
@@ -26,7 +29,7 @@ function BurgerIngredients (props) {
         return (
             <section className={`${styles.dishtype_section} pb-10`}>
                 { renderIngredientsBlockHeader(categoryId, name) }
-                { renderIngredients(props.data, categoryId) }
+                { renderIngredients(data, categoryId) }
             </section>
         );
     }

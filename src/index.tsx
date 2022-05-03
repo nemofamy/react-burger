@@ -5,12 +5,12 @@ import App from './components/app/app';
 import { legacy_createStore as createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import { rootReducer } from './services/root-reducer';
+import { rootReducer } from './services/reducers/reducers';
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
-    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({})
-    : compose; 
+    ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+    : compose;
 
 const enhancer = composeEnhancers(applyMiddleware(thunk));
 
@@ -26,8 +26,9 @@ root.render(
       <App />
     </Provider>
   </React.StrictMode>
-); 
+);  
 
 
 
 
+ 

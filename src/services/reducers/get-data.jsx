@@ -1,14 +1,15 @@
-import { GET_DATA, GET_DATA_SUCCESS, GET_DATA_FAILED } from "./actions";
+import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_ERROR } from "../actions/get-data.jsx";
+
 
 const initialState = {
     dataRequest: false,
     dataFailed: false, 
     data: [],
-}
+} 
 
-export const rootReducer = (state = initialState, action) => {
+export const getData = (state = initialState, action) => {
     switch (action.type) {
-        case GET_DATA:
+        case GET_DATA_REQUEST:
             return {
                 ...state,
                 dataRequest: true,
@@ -21,8 +22,8 @@ export const rootReducer = (state = initialState, action) => {
                 dataRequest: false,
                 dataFailed: false
             };
-        case GET_DATA_FAILED:
-            return {
+        case GET_DATA_ERROR:
+            return { 
                 ...state,
                 dataRequest: false,
                 dataFailed: true

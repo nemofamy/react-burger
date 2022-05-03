@@ -6,9 +6,10 @@ import Modal from '../modals/modal';
 import PropTypes from 'prop-types';
 import ingredientShape from '../../utils/types';
 import OrderDetails from '../modals/order-details';
+import { useSelector } from 'react-redux';
 
-function BurgerConstructor (props) {
-    const data = props.data;
+function BurgerConstructor () {
+    const data = useSelector(store => store.getData.data);
 
     const [isModalVisible, setModalVisibility] = React.useState(false);
 
