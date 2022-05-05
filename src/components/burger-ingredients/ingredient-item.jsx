@@ -8,7 +8,7 @@ import { useDrag } from "react-dnd";
 
 
 function IngredientItem (props) {
-    const { type, carbohydrates, proteins, fat, calories, name, image, image_large, price, __v, _id } = props.dataset;
+    const { type, carbohydrates, proteins, fat, calories, name, image, image_large, price, amount, _id } = props.dataset;
     const [isModalVisible, setModalVisibility] = React.useState(false);
 
     const openModal = () => {
@@ -21,7 +21,7 @@ function IngredientItem (props) {
 
     const [, dragRef] = useDrag({
         type: 'ingredient',
-        item: { type, carbohydrates, proteins, fat, calories, name, image, image_large, price, __v, _id },
+        item: { type, carbohydrates, proteins, fat, calories, name, image, image_large, price, amount, _id },
         // collect: monitor => ({
         //     isDrag: monitor.isDragging()
         // })
@@ -30,7 +30,7 @@ function IngredientItem (props) {
     return (
         <>
             <div className={`${styles.ingredient_item} ml-4`} onClick={openModal} ref={dragRef} draggable>
-                {__v > 0 && <Counter count={__v} size="default" />}
+                {amount > 0 && <Counter count={amount} size="default" />}
                 <img className="ml-4 mr-4" alt={name} src={image} />
                 <div className={styles.cost_block}>
                     <p className="mr-2 text text_type_digits-default">{price}</p> 

@@ -1,4 +1,4 @@
-import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_ERROR } from "../actions/get-data.jsx";
+import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_ERROR, INGREDIENT_AMOUNT_INCREASE, INGREDIENT_AMOUNT_DECREASE } from "../actions/get-data.jsx";
 
 
 const initialState = {
@@ -18,7 +18,9 @@ export const getData = (state = initialState, action) => {
         case GET_DATA_SUCCESS:
             return {
                 ...state,
-                data: action.payload,
+                data: action.payload.map(item => {
+                    return { ...item, amount: 0 };
+                }),
                 dataRequest: false,
                 dataFailed: false
             };
@@ -28,6 +30,29 @@ export const getData = (state = initialState, action) => {
                 dataRequest: false,
                 dataFailed: true
             }
+        case INGREDIENT_AMOUNT_INCREASE:
+            return {
+                ...state,
+                data: state.data.map(item => {
+                    if (item._id === action.payload._id) {
+                        return { ...item, amount: ++item.amount } 
+                    } else {
+                        return item;
+                    }
+                })
+            };
+        case INGREDIENT_AMOUNT_DECREASE:
+            console.log(action.payload);
+            return {
+                ...state,
+                data: state.data.map(item => {
+                    if (item._id === action.payload._id) {
+                        return { ...item, amount: --item.amount } 
+                    } else {
+                        return item;
+                    }
+                })
+            };
         default:
             return state;
     }

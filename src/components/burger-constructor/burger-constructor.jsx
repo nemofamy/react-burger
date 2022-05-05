@@ -11,6 +11,7 @@ import {
     ADD_INGREDIENT_IN_CONSTRUCTOR, 
     REMOVE_INGREDIENT_IN_CONCTRUCTOR, 
     BUN_SELECTOR } from '../../services/actions/burger-constructor';
+import { INGREDIENT_AMOUNT_INCREASE, INGREDIENT_AMOUNT_DECREASE } from '../../services/actions/get-data';
 import { useDispatch, useSelector } from 'react-redux';
 
 function BurgerConstructor () {
@@ -25,12 +26,18 @@ function BurgerConstructor () {
             dispatch({
                 type: ADD_INGREDIENT_IN_CONSTRUCTOR,
                 payload: item
-            })
+            });
+            dispatch({
+                type: INGREDIENT_AMOUNT_INCREASE,
+                payload: {
+                    _id: item._id
+                }
+            });
         } else {
             dispatch({
                 type: BUN_SELECTOR,
                 payload: item
-            })
+            });
         }
     }
 
@@ -39,7 +46,13 @@ function BurgerConstructor () {
             dispatch({
                 type: REMOVE_INGREDIENT_IN_CONCTRUCTOR,
                 payload: e.currentTarget.id
-            })
+            });
+            dispatch({
+                type: INGREDIENT_AMOUNT_DECREASE,
+                payload: {
+                    _id: e.currentTarget.attributes._id.value
+                }
+            });
         }
 
     }
@@ -82,10 +95,10 @@ function BurgerConstructor () {
             <div className={`${styles.scroll_container} pr-2`}>
                 {
                     data.map(function (element, index) {
-                        const { name, price, image, type, elementId } = element;
+                        const { name, price, image, type, elementId, _id } = element;
                         if (type !== "bun") {
                             return (
-                                <div key={index} id={elementId} className={styles.burger_element} onClick={onClick}>
+                                <div key={index} id={elementId} _id={_id} className={styles.burger_element} onClick={onClick}>
                                     <DragIcon type="primary" />
                                     <ConstructorElement 
                                         text={name}
