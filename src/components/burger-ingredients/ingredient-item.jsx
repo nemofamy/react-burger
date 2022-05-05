@@ -4,9 +4,11 @@ import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-c
 import Modal from '../modals/modal';
 import ingredientShape from '../../utils/types';
 import IngredientDetails from '../modals/ingredient-details';
+import { useDrag } from "react-dnd";
+
 
 function IngredientItem (props) {
-    const { carbohydrates, proteins, fat, calories, name, image, image_large, price, __v } = props.dataset;
+    const { type, carbohydrates, proteins, fat, calories, name, image, image_large, price, __v, _id } = props.dataset;
     const [isModalVisible, setModalVisibility] = React.useState(false);
 
     const openModal = () => {
@@ -17,9 +19,17 @@ function IngredientItem (props) {
         setModalVisibility(false);
     }
 
+    const [, dragRef] = useDrag({
+        type: 'ingredient',
+        item: { type, carbohydrates, proteins, fat, calories, name, image, image_large, price, __v, _id },
+        // collect: monitor => ({
+        //     isDrag: monitor.isDragging()
+        // })
+    });
+
     return (
         <>
-            <div className={`${styles.ingredient_item} ml-4`} onClick={openModal}>
+            <div className={`${styles.ingredient_item} ml-4`} onClick={openModal} ref={dragRef} draggable>
                 {__v > 0 && <Counter count={__v} size="default" />}
                 <img className="ml-4 mr-4" alt={name} src={image} />
                 <div className={styles.cost_block}>

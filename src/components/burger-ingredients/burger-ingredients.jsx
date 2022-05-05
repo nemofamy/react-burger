@@ -12,8 +12,8 @@ function BurgerIngredients () {
     const data = useSelector(store => store.getData.data);
     const current = 'bun';
 
-    function renderIngredients(array, categoryName) {
-        return array.map((ingredient)=>(
+    function renderIngredients(data, categoryName) {
+        return data.map((ingredient)=>(
             ingredient.type === categoryName &&
                 <IngredientItem key={ingredient._id} dataset={ingredient} />
         ));

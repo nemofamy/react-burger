@@ -55,10 +55,6 @@
     margin-right: 22px;
 }
 
-.burger_element:first-child {
-    width: auto;
-}
-
 .cost_element {
     display: flex;
    
