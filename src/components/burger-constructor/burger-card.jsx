@@ -13,13 +13,19 @@ const BurgerCard = (props) => {
     
     const dispatch = useDispatch();
 
-    const [, drag] = useDrag({
+    const [{ isDrag }, drag] = useDrag({
         type: 'constructorCard',
         item: { index, elementId, _id, name, price, image },
+        collect: monitor => ({
+            isDrag: monitor.isDragging()
+        })
     });
 
-    const [, drop] = useDrop({
+    const [{isHover}, drop] = useDrop({
         accept: 'constructorCard',
+        collect: monitor => ({
+            isHover: monitor.isOver(),
+        }),
         drop (item) {
             const dragIndex = item.index
             const hoverIndex = index;
@@ -30,7 +36,7 @@ const BurgerCard = (props) => {
                             hoverIndex
                         }
                     });
-        },
+        }
     });
 
     const ref = useRef(null);
@@ -56,11 +62,13 @@ const BurgerCard = (props) => {
             ref={dragDropRef}
             id={elementId} 
             _id={_id} 
-            className={styles.burger_element} 
+            className={`${styles.burger_element} ${ isDrag && styles.draging_card}`} 
             onClick={onClick} 
             draggable={true}>
             <DragIcon type="primary" />
-            <ConstructorElement text={name} price={price} thumbnail={image}/>
+            <div className={`${styles.card_wrap} ${isHover && styles.hover_card}`}>
+                <ConstructorElement text={name} price={price} thumbnail={image} />
+            </div>
         </div>
     );
 }

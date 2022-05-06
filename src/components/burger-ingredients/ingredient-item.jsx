@@ -19,17 +19,17 @@ function IngredientItem (props) {
         setModalVisibility(false);
     }
 
-    const [, dragRef] = useDrag({
+    const [{ isDrag }, dragRef] = useDrag({
         type: 'ingredient',
         item: { type, carbohydrates, proteins, fat, calories, name, image, image_large, price, amount, _id },
-        // collect: monitor => ({
-        //     isDrag: monitor.isDragging()
-        // })
+        collect: monitor => ({
+            isDrag: monitor.isDragging()
+        })
     });
 
     return (
         <>
-            <div className={`${styles.ingredient_item} ml-4`} onClick={openModal} ref={dragRef} draggable>
+            <div className={`${styles.ingredient_item} ${ isDrag && styles.dragging_ingredient} ml-4`} onClick={openModal} ref={dragRef} draggable>
                 {amount > 0 && <Counter count={amount} size="default" />}
                 <img className="ml-4 mr-4" alt={name} src={image} />
                 <div className={styles.cost_block}>

@@ -10,7 +10,13 @@ import { useSelector } from 'react-redux';
 function BurgerIngredients () {
 
     const data = useSelector(store => store.getData.data);
-    const current = 'bun';
+    const [currentTab, setCurrentTab] = React.useState('bun');
+
+    const onTabClick = (tab) => {
+        setCurrentTab(tab);
+        const element = document.getElementById(tab);
+        if (element) element.scrollIntoView({behavior: 'smooth'});
+    };
 
     function renderIngredients(data, categoryName) {
         return data.map((ingredient)=>(
@@ -39,13 +45,13 @@ function BurgerIngredients () {
         <main className={`${styles.wrap} pt-10 mr-10`}>
             <h1 className={`${styles.main_header} text text_type_main-large`}>Соберите бургер</h1>
             <div className={`${styles.tab_bar} mt-5 mb-10`}>
-                <Tab value="bun" active={current === 'bun'}>
+                <Tab value="bun" active={currentTab === 'bun'} onClick={onTabClick}>
                     Булки
                 </Tab>
-                <Tab value="sauce" active={current === 'sauce'}>
+                <Tab value="sauce" active={currentTab === 'sauce'} onClick={onTabClick}>
                     Соусы
                 </Tab>
-                <Tab value="main" active={current === 'main'}>
+                <Tab value="main" active={currentTab === 'main'} onClick={onTabClick}>
                     Начинки
                 </Tab> 
             </div>

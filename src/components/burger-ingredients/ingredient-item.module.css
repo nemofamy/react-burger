@@ -22,3 +22,7 @@
 .dish_name_modal {
     text-align: center;
 }
+
+.dragging_ingredient {
+    cursor: grabbing;
+}

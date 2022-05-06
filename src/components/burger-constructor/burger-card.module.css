@@ -4,5 +4,22 @@
     align-items: center;
     gap: 8px;
     width: 100%;
-    cursor: pointer;
+    cursor: grab;
+}
+
+.draging_card {
+    cursor: grabbing;
+}
+
+.hover_card {
+    opacity:0.5;
+}
+
+.card_wrap {
+    align-self: flex-start;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    cursor: grab;
 }
