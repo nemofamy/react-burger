@@ -2,6 +2,11 @@
     width: 600px;
 }
 
+.wrap_modal {
+    display:flex;
+    flex-direction: column;
+}
+
 .main_header {
     text-align: left;
 }

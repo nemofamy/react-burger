@@ -4,13 +4,28 @@ import IngredientItem from './ingredient-item';
 import styles from './burger-ingredients.module.css';
 import PropTypes from 'prop-types';
 import ingredientShape from '../../utils/types';
-import { useSelector } from 'react-redux';
+import Modal from '../modals/modal';
+import { CLOSE_INGREDIENT_MODAL } from '../../services/actions/modal_ingredient';
+import IngredientDetails from '../modals/ingredient-details';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 
 function BurgerIngredients () {
 
     const data = useSelector(store => store.getData.data);
+    const ingredientModalData = useSelector(store => store.modalIngredient.data);
+    const { name, image_large, calories, proteins, fat, carbohydrates } = ingredientModalData;
     const [currentTab, setCurrentTab] = React.useState('bun');
+    const isModalVisible = useSelector(store => store.modalIngredient.isVisible);
+    const dispatch = useDispatch();
+
+
+    const closeModal = () => {
+        dispatch({
+            type: CLOSE_INGREDIENT_MODAL
+        })
+    }
 
     const onTabClick = (tab) => {
         setCurrentTab(tab);
@@ -60,6 +75,19 @@ function BurgerIngredients () {
                     { renderIngredientsSection("sauce", "Соусы") }
                     { renderIngredientsSection("main", "Начинки") }
             </div>
+            {   isModalVisible &&
+                <Modal closeModal={closeModal} isVisible={isModalVisible} header="Детали ингредиента">
+                    <div className={styles.wrap_modal}>
+                        <IngredientDetails 
+                            name={name} 
+                            image_large={image_large} 
+                            calories={calories} 
+                            proteins={proteins} 
+                            fat={fat} 
+                            carbohydrates={carbohydrates} />
+                    </div>      
+                </Modal>
+            } 
         </main>
     );
 }
