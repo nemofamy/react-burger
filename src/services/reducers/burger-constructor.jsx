@@ -1,7 +1,8 @@
 import { 
     ADD_INGREDIENT_IN_CONSTRUCTOR, 
     REMOVE_INGREDIENT_IN_CONCTRUCTOR,
-    BUN_SELECTOR
+    BUN_SELECTOR,
+    CHANGE_ELEMENT_ORDER
 } from "../actions/burger-constructor";
 
 const initialState = {
@@ -19,7 +20,7 @@ export const burgerConstructor = (state = initialState, action) => {
         case ADD_INGREDIENT_IN_CONSTRUCTOR:
             return {
                 ...state,
-                data:[...state.data, action.payload]
+                data:[...state.data, action.payload.item]
             };
         case REMOVE_INGREDIENT_IN_CONCTRUCTOR:
             return {
@@ -29,8 +30,19 @@ export const burgerConstructor = (state = initialState, action) => {
         case BUN_SELECTOR:
             return {
                 ...state,
-                bun: action.payload
-            }
+                bun: action.payload.item
+            };
+            
+        case CHANGE_ELEMENT_ORDER:
+            const { dragIndex, hoverIndex } = action.payload;
+            const dragElement = state.data[dragIndex];
+            const hoverElement = state.data[hoverIndex];
+
+            return {
+                ...state,
+                data: state.data.map((item, index) =>  
+                    index === dragIndex ? hoverElement : index === hoverIndex ? dragElement : item)
+            };
         default: 
             return state;
     }

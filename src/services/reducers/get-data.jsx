@@ -42,7 +42,6 @@ export const getData = (state = initialState, action) => {
                 })
             };
         case INGREDIENT_AMOUNT_DECREASE:
-            console.log(action.payload);
             return {
                 ...state,
                 data: state.data.map(item => {

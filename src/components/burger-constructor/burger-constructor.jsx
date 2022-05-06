@@ -1,18 +1,18 @@
 import React from 'react';
 import { ConstructorElement, Button }  from '@ya.praktikum/react-developer-burger-ui-components';
-import { DragIcon, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
 import Modal from '../modals/modal';
 import PropTypes from 'prop-types';
 import ingredientShape from '../../utils/types';
 import OrderDetails from '../modals/order-details';
-import { useDrop } from "react-dnd";
+import { useDrop, useDrag } from "react-dnd";
 import { 
     ADD_INGREDIENT_IN_CONSTRUCTOR, 
-    REMOVE_INGREDIENT_IN_CONCTRUCTOR, 
     BUN_SELECTOR } from '../../services/actions/burger-constructor';
-import { INGREDIENT_AMOUNT_INCREASE, INGREDIENT_AMOUNT_DECREASE } from '../../services/actions/get-data';
+import { INGREDIENT_AMOUNT_INCREASE } from '../../services/actions/get-data';
 import { useDispatch, useSelector } from 'react-redux';
+import BurgerCard from './burger-card';
 
 function BurgerConstructor () {
     const dispatch = useDispatch();
@@ -25,7 +25,7 @@ function BurgerConstructor () {
             item = {...item, elementId: elementId};
             dispatch({
                 type: ADD_INGREDIENT_IN_CONSTRUCTOR,
-                payload: item
+                payload: { item }
             });
             dispatch({
                 type: INGREDIENT_AMOUNT_INCREASE,
@@ -36,25 +36,10 @@ function BurgerConstructor () {
         } else {
             dispatch({
                 type: BUN_SELECTOR,
-                payload: item
+                payload: { item }
             });
         }
-    }
-
-    const onClick = (e) => {
-        if (e.target.parentElement.parentElement.classList.contains('constructor-element__action')) {
-            dispatch({
-                type: REMOVE_INGREDIENT_IN_CONCTRUCTOR,
-                payload: e.currentTarget.id
-            });
-            dispatch({
-                type: INGREDIENT_AMOUNT_DECREASE,
-                payload: {
-                    _id: e.currentTarget.attributes._id.value
-                }
-            });
-        }
-
+        
     }
 
     const [, dropTarget] = useDrop({
@@ -63,6 +48,7 @@ function BurgerConstructor () {
             onDropHandler(item)
         }
     });
+
 
     const [isModalVisible, setModalVisibility] = React.useState(false);
 
@@ -95,17 +81,9 @@ function BurgerConstructor () {
             <div className={`${styles.scroll_container} pr-2`}>
                 {
                     data.map(function (element, index) {
-                        const { name, price, image, type, elementId, _id } = element;
-                        if (type !== "bun") {
+                        if (element.type !== "bun") {
                             return (
-                                <div key={index} id={elementId} _id={_id} className={styles.burger_element} onClick={onClick}>
-                                    <DragIcon type="primary" />
-                                    <ConstructorElement 
-                                        text={name}
-                                        price={price}
-                                        thumbnail={image}
-                                    />
-                                </div>
+                                <BurgerCard key={index} index={index} element={element}/>
                             );
                         } else {
                             return null;

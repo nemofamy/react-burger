@@ -36,15 +36,6 @@
     height: 64px;
 }
 
-.burger_element {
-    align-self: flex-start;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-    cursor: pointer;
-}
-
 .burger_element_top {
     margin-left: 25px;
     margin-right: 22px;
