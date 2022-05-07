@@ -1,0 +1,10 @@
+.dishtype_section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px 8px;
+}
+
+.section_header {
+    width: 100%;
+    text-align: left;
+}

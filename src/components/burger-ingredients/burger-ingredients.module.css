@@ -11,19 +11,8 @@
     text-align: left;
 }
 
-.dishtype_section {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 32px 8px;
-}
-
 .tab_bar {
     display: flex;
-}
-
-.section_header {
-    width: 100%;
-    text-align: left;
 }
 
 .scrollWrap {

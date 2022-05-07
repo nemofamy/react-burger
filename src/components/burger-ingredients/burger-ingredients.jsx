@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
-import IngredientItem from './ingredient-item';
 import styles from './burger-ingredients.module.css';
 import PropTypes from 'prop-types';
 import ingredientShape from '../../utils/types';
@@ -8,10 +7,9 @@ import Modal from '../modals/modal';
 import { CLOSE_INGREDIENT_MODAL } from '../../services/actions/modal_ingredient';
 import IngredientDetails from '../modals/ingredient-details';
 import { useDispatch, useSelector } from 'react-redux';
+import IngredientsSection from './ingredients-section';
 
 function BurgerIngredients () {
-
-    const data = useSelector(store => store.getData.data);
     const ingredientModalData = useSelector(store => store.modalIngredient.data);
     const { name, image_large, calories, proteins, fat, carbohydrates } = ingredientModalData;
     const [currentTab, setCurrentTab] = React.useState('bun');
@@ -30,18 +28,6 @@ function BurgerIngredients () {
         const element = document.getElementById(tab);
         if (element) element.scrollIntoView({behavior: 'smooth'});
     };
-
-    function renderIngredientsSection(categoryId, name, refName) {
-        return (
-            <section className={`${styles.dishtype_section} pb-10`} ref={refName}>
-                <h3 id={categoryId} className={`${styles.section_header} text text_type_main-medium`}>{name}</h3>
-                { 
-                    data.map((ingredient) =>
-                    (ingredient.type === categoryId && <IngredientItem key={ingredient._id} dataset={ingredient}/>))
-                }
-            </section>
-        );
-    }
 
     const scrollRef = useRef(null);
     const refBun = useRef(null);
@@ -109,9 +95,9 @@ function BurgerIngredients () {
                 </Tab> 
             </div>
             <div className={styles.scrollWrap} ref={scrollRef}>
-                    { renderIngredientsSection("bun", "Булки", refBun) }
-                    { renderIngredientsSection("sauce", "Соусы", refSauce) }
-                    { renderIngredientsSection("main", "Начинки", refMain) }
+                <IngredientsSection refName={refBun} name={'Булки'} categoryId={'bun'} />
+                <IngredientsSection refName={refSauce} name={'Соусы'} categoryId={'sauce'} />
+                <IngredientsSection refName={refMain} name={'Начинки'} categoryId={'main'} />
             </div>
             {   isModalVisible &&
                 <Modal closeModal={closeModal} isVisible={isModalVisible} header="Детали ингредиента">
