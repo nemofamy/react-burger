@@ -1,4 +1,4 @@
-import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_ERROR } from "./actions/get-data.jsx";
+import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_ERROR, BUN_AMOUNT_CHANGE } from "./actions/get-data.jsx";
 
 export const API_ADDRESS = 'https://norma.nomoreparties.space/api/';
 
@@ -10,9 +10,15 @@ export const getInitialData = () => {
          if (res.ok) {
             const dataset = await res.json();
             if (dataset.success) {
-                dispatch({
+               dispatch({
                   type: GET_DATA_SUCCESS,
                   payload: dataset.data
+               });
+               dispatch({
+                  type: BUN_AMOUNT_CHANGE,
+                  payload: {
+                     _id: '60d3b41abdacab0026a733c6'
+                  }
                });
             }
          } else {

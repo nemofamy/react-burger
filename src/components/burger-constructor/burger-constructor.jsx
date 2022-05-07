@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ConstructorElement, Button }  from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
@@ -6,13 +6,14 @@ import Modal from '../modals/modal';
 import OrderDetails from '../modals/order-details';
 import { useDrop } from "react-dnd";
 import { 
-    ADD_INGREDIENT_IN_CONSTRUCTOR, 
+    ADD_INGREDIENT_IN_CONSTRUCTOR,
     BUN_SELECTOR } from '../../services/actions/burger-constructor';
-import { INGREDIENT_AMOUNT_INCREASE } from '../../services/actions/get-data';
+import { INGREDIENT_AMOUNT_INCREASE, BUN_AMOUNT_CHANGE } from '../../services/actions/get-data';
 import { useDispatch, useSelector } from 'react-redux';
 import BurgerCard from './burger-card';
 import { OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL } from '../../services/actions/modal-order';
 import getOrderData from '../../services/get-order-data';
+
 
 function BurgerConstructor () {
     const dispatch = useDispatch();
@@ -43,6 +44,12 @@ function BurgerConstructor () {
             dispatch({
                 type: BUN_SELECTOR,
                 payload: { item }
+            });
+            dispatch({
+                type: BUN_AMOUNT_CHANGE,
+                payload: {
+                    _id: item._id
+                }
             });
         }
     }
@@ -77,6 +84,8 @@ function BurgerConstructor () {
         const bunsCost = bun.price * 2;
         return ingredientsCost + bunsCost;
     }
+    
+
     return (
         <section className={`${styles.wrap}  ${isHover && styles.hovered_wrap} pl-4 pt-25 pr-6`} ref={dropTarget}>
             <div className={`${styles.burger_element_top} ${styles.burger_element}`}>
