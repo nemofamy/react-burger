@@ -10,7 +10,6 @@ import { OPEN_INGREDIENT_MODAL } from '../../services/actions/modal_ingredient';
 
 function IngredientItem (props) {
     const { type, carbohydrates, proteins, fat, calories, name, image, image_large, price, amount, _id } = props.dataset;
-    // const [isModalVisible, setModalVisibility] = React.useState(false);
     const dispatch = useDispatch();
 
     const openModal = () => {

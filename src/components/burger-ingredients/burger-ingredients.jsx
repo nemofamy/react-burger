@@ -9,8 +9,6 @@ import { CLOSE_INGREDIENT_MODAL } from '../../services/actions/modal_ingredient'
 import IngredientDetails from '../modals/ingredient-details';
 import { useDispatch, useSelector } from 'react-redux';
 
-
-
 function BurgerIngredients () {
 
     const data = useSelector(store => store.getData.data);
@@ -82,12 +80,18 @@ function BurgerIngredients () {
 
         setCurrentTab(getNameUtility(currentScrollHeight, arrPoints, arrNames));
     }
-
+    
     useEffect(() => {
-        scrollRef.current.addEventListener('scroll', () => {
-            onScrollHandler([[refBun, 'bun'], [refSauce, 'sauce'], [refMain, 'main']])
-        });            
-    },[]);
+        const onScroll = () => {
+            return onScrollHandler([[refBun, 'bun'], [refSauce, 'sauce'], [refMain, 'main']]);
+        }
+        const scrollElement = scrollRef.current;
+        scrollElement.addEventListener('scroll', onScroll);
+
+        return () => {
+            scrollElement.removeEventListener('scroll', onScroll);
+        }   
+    });
     
 
     return(
