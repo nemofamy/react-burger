@@ -1,12 +1,12 @@
 import { GET_DATA_REQUEST, GET_DATA_SUCCESS, GET_DATA_ERROR } from "./actions/get-data.jsx";
 
-const BURGER_API_ADDRESS = 'https://norma.nomoreparties.space/api/ingredients';
+export const API_ADDRESS = 'https://norma.nomoreparties.space/api/';
 
 export const getInitialData = () => {
    return async (dispatch) => {
       dispatch({type: GET_DATA_REQUEST});
       try {
-         const res = await fetch(BURGER_API_ADDRESS);
+         const res = await fetch(`${API_ADDRESS}ingredients`);
          if (res.ok) {
             const dataset = await res.json();
             if (dataset.success) {

@@ -6,18 +6,26 @@ import Modal from '../modals/modal';
 import PropTypes from 'prop-types';
 import ingredientShape from '../../utils/types';
 import OrderDetails from '../modals/order-details';
-import { useDrop, useDrag } from "react-dnd";
+import { useDrop } from "react-dnd";
 import { 
     ADD_INGREDIENT_IN_CONSTRUCTOR, 
     BUN_SELECTOR } from '../../services/actions/burger-constructor';
 import { INGREDIENT_AMOUNT_INCREASE } from '../../services/actions/get-data';
 import { useDispatch, useSelector } from 'react-redux';
 import BurgerCard from './burger-card';
+import { OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL } from '../../services/actions/modal-order';
+import getOrderData from '../../services/get-order-data';
 
 function BurgerConstructor () {
     const dispatch = useDispatch();
     const data = useSelector(store => store.burgerConstructor.data);
     const bun = useSelector(store => store.burgerConstructor.bun);
+    const isModalVisible = useSelector(store => store.modalOrder.isVisible);
+
+    // получаем массив для отправки запроса заказа, вытаскиваем _id ингредиентов в конструкторе,
+    // затем "обкладываем" выбранными булками
+    let constructorDataIdenties = data.map(item => item._id);
+    constructorDataIdenties = [bun._id ,...constructorDataIdenties, bun._id];
 
     const onDropHandler = (item) => {
         if (item.type !== 'bun') {
@@ -39,7 +47,6 @@ function BurgerConstructor () {
                 payload: { item }
             });
         }
-        
     }
 
     const [, dropTarget] = useDrop({
@@ -49,15 +56,17 @@ function BurgerConstructor () {
         }
     });
 
-
-    const [isModalVisible, setModalVisibility] = React.useState(false);
-
     const openModal = () => {
-        setModalVisibility(true);
+        dispatch(getOrderData(constructorDataIdenties));
+        dispatch({
+            type: OPEN_ORDER_MODAL
+        })
     }
 
     const closeModal = () => {
-        setModalVisibility(false);
+        dispatch({
+            type: CLOSE_ORDER_MODAL
+        })
     }
 
     const totalCostCalculate = () => {
