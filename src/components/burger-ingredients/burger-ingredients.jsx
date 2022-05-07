@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import IngredientItem from './ingredient-item';
 import styles from './burger-ingredients.module.css';
@@ -33,27 +33,61 @@ function BurgerIngredients () {
         if (element) element.scrollIntoView({behavior: 'smooth'});
     };
 
-    function renderIngredients(data, categoryName) {
-        return data.map((ingredient)=>(
-            ingredient.type === categoryName &&
-                <IngredientItem key={ingredient._id} dataset={ingredient} />
-        ));
-    }
-
-    function renderIngredientsBlockHeader(categoryId, categoryName) {
+    function renderIngredientsSection(categoryId, name, refName) {
         return (
-            <h3 id={categoryId} className={`${styles.section_header} text text_type_main-medium`}>{categoryName}</h3>
-        );
-    }
-
-    function renderIngredientsSection(categoryId, name) {
-        return (
-            <section className={`${styles.dishtype_section} pb-10`}>
-                { renderIngredientsBlockHeader(categoryId, name) }
-                { renderIngredients(data, categoryId) }
+            <section className={`${styles.dishtype_section} pb-10`} ref={refName}>
+                <h3 id={categoryId} className={`${styles.section_header} text text_type_main-medium`}>{name}</h3>
+                { 
+                    data.map((ingredient) =>
+                    (ingredient.type === categoryId && <IngredientItem key={ingredient._id} dataset={ingredient}/>))
+                }
             </section>
         );
     }
+
+    const scrollRef = useRef(null);
+    const refBun = useRef(null);
+    const refSauce = useRef(null);
+    const refMain = useRef(null);
+
+    // На всякий случай реализован гибкий механизм определения активной вкладки,
+    // он поддерживает больше разделов, чем три (вдруг начинки разделят на астероидные и флору)
+
+    // определяем искомое имя по точкам перехода
+    const getNameUtility = (currentScrollHeight, arrPoints, arrNames) => {
+        const index = arrPoints.findIndex(el => currentScrollHeight < el);
+        if (index !== -1) {
+            return arrNames[index];
+        }
+        return arrNames[arrNames.length - 1];
+    }
+
+    // принимает мыссив ссылки на разделы (с названиями)
+    const onScrollHandler = (arrRefs) => {
+        const currentScrollHeight = scrollRef.current.scrollTop;
+
+        // определям массив с точками перехода
+        const arrPoints = arrRefs.map((item, index) => {
+            if (index === 0) {
+                return item[0].current.scrollHeight / 2;
+            } 
+            return item[0].current.scrollHeight;
+            
+        }); 
+
+        // массив с названиями
+        const arrNames = arrRefs.map(item => {
+            return item[1];
+        }); 
+
+        setCurrentTab(getNameUtility(currentScrollHeight, arrPoints, arrNames));
+    }
+
+    useEffect(() => {
+        scrollRef.current.addEventListener('scroll', () => {
+            onScrollHandler([[refBun, 'bun'], [refSauce, 'sauce'], [refMain, 'main']])
+        });            
+    },[]);
     
 
     return(
@@ -70,10 +104,10 @@ function BurgerIngredients () {
                     Начинки
                 </Tab> 
             </div>
-            <div className={styles.scrollWrap}>
-                    { renderIngredientsSection("bun", "Булки") }
-                    { renderIngredientsSection("sauce", "Соусы") }
-                    { renderIngredientsSection("main", "Начинки") }
+            <div className={styles.scrollWrap} ref={scrollRef}>
+                    { renderIngredientsSection("bun", "Булки", refBun) }
+                    { renderIngredientsSection("sauce", "Соусы", refSauce) }
+                    { renderIngredientsSection("main", "Начинки", refMain) }
             </div>
             {   isModalVisible &&
                 <Modal closeModal={closeModal} isVisible={isModalVisible} header="Детали ингредиента">
