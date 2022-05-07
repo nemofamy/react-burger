@@ -3,8 +3,6 @@ import { ConstructorElement, Button }  from '@ya.praktikum/react-developer-burge
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
 import Modal from '../modals/modal';
-import PropTypes from 'prop-types';
-import ingredientShape from '../../utils/types';
 import OrderDetails from '../modals/order-details';
 import { useDrop } from "react-dnd";
 import { 
@@ -136,10 +134,6 @@ function BurgerConstructor () {
             }
         </section>
     );
-}
-
-BurgerConstructor.propTypes = {
-    data: PropTypes.arrayOf(ingredientShape).isRequired
 }
 
 export default BurgerConstructor;

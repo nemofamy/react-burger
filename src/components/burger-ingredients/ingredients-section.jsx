@@ -1,6 +1,7 @@
 import IngredientItem from './ingredient-item';
 import { useSelector } from 'react-redux';
 import styles from './ingredients-section.module.css';
+import PropTypes from 'prop-types';
 
 const IngredientsSection = (props) => {
     const { refName, name, categoryId } = props;
@@ -15,6 +16,12 @@ const IngredientsSection = (props) => {
             }
         </section>
     );
+}
+
+IngredientsSection.propTypes = {
+    name: PropTypes.string.isRequired,
+    categoryId: PropTypes.string.isRequired,
+    refName: PropTypes.object.isRequired
 }
 
 export default IngredientsSection;

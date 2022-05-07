@@ -116,8 +116,4 @@ function BurgerIngredients () {
     );
 }
 
-BurgerIngredients.propTypes = {
-    data: PropTypes.arrayOf(ingredientShape).isRequired
-}
-
 export default BurgerIngredients;
