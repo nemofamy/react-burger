@@ -3,7 +3,7 @@
     flex-direction: column;
     gap: 10px;
     align-items: flex-end;
-    height: calc(100vh - 230px);
+    height: calc(100vh - 250px);
 }
 
 .scroll_container {
@@ -55,5 +55,9 @@
     margin-left: 8px;
     height: 33px;
     width: 33px;
+}
+
+.hovered_wrap {
+    opacity: 0.6;
 }
 

@@ -1,8 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-ingredients.module.css';
-import PropTypes from 'prop-types';
-import ingredientShape from '../../utils/types';
 import Modal from '../modals/modal';
 import { CLOSE_INGREDIENT_MODAL } from '../../services/actions/modal_ingredient';
 import IngredientDetails from '../modals/ingredient-details';
@@ -47,7 +45,7 @@ function BurgerIngredients () {
     }
 
     // принимает мыссив ссылки на разделы (с названиями)
-    const onScrollHandler = (arrRefs) => {
+    const onScroll = (arrRefs) => {
         const currentScrollHeight = scrollRef.current.scrollTop;
 
         // определям массив с точками перехода
@@ -68,14 +66,14 @@ function BurgerIngredients () {
     }
     
     useEffect(() => {
-        const onScroll = () => {
-            return onScrollHandler([[refBun, 'bun'], [refSauce, 'sauce'], [refMain, 'main']]);
+        const onScrollHandler = () => {
+            return onScroll([[refBun, 'bun'], [refSauce, 'sauce'], [refMain, 'main']]);
         }
         const scrollElement = scrollRef.current;
-        scrollElement.addEventListener('scroll', onScroll);
+        scrollElement.addEventListener('scroll', onScrollHandler);
 
         return () => {
-            scrollElement.removeEventListener('scroll', onScroll);
+            scrollElement.removeEventListener('scroll', onScrollHandler);
         }   
     });
     
@@ -84,15 +82,9 @@ function BurgerIngredients () {
         <main className={`${styles.wrap} pt-10 mr-10`}>
             <h1 className={`${styles.main_header} text text_type_main-large`}>Соберите бургер</h1>
             <div className={`${styles.tab_bar} mt-5 mb-10`}>
-                <Tab value="bun" active={currentTab === 'bun'} onClick={onTabClick}>
-                    Булки
-                </Tab>
-                <Tab value="sauce" active={currentTab === 'sauce'} onClick={onTabClick}>
-                    Соусы
-                </Tab>
-                <Tab value="main" active={currentTab === 'main'} onClick={onTabClick}>
-                    Начинки
-                </Tab> 
+                <Tab value="bun" active={currentTab === 'bun'} onClick={onTabClick}>Булки</Tab>
+                <Tab value="sauce" active={currentTab === 'sauce'} onClick={onTabClick}>Соусы</Tab>
+                <Tab value="main" active={currentTab === 'main'} onClick={onTabClick}>Начинки</Tab> 
             </div>
             <div className={styles.scrollWrap} ref={scrollRef}>
                 <IngredientsSection refName={refBun} name={'Булки'} categoryId={'bun'} />

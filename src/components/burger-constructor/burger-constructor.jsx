@@ -47,11 +47,14 @@ function BurgerConstructor () {
         }
     }
 
-    const [, dropTarget] = useDrop({
+    const [{isHover}, dropTarget] = useDrop({
         accept: 'ingredient',
-        drop(item) {
+        drop (item) {
             onDropHandler(item)
-        }
+        },
+        collect: monitor => ({
+            isHover: monitor.isOver()
+        })
     });
 
     const openModal = () => {
@@ -75,7 +78,7 @@ function BurgerConstructor () {
         return ingredientsCost + bunsCost;
     }
     return (
-        <section className={`${styles.wrap} pl-4 pt-25 pr-6`} ref={dropTarget}>
+        <section className={`${styles.wrap}  ${isHover && styles.hovered_wrap} pl-4 pt-25 pr-6`} ref={dropTarget}>
             <div className={`${styles.burger_element_top} ${styles.burger_element}`}>
                 <ConstructorElement 
                     type="top"

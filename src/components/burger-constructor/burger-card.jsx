@@ -64,7 +64,7 @@ const BurgerCard = (props) => {
             _id={_id} 
             className={`${styles.burger_element} ${ isDrag && styles.draging_card}`} 
             onClick={onClick} 
-            draggable={true}>
+            draggable>
             <DragIcon type="primary" />
             <div className={`${styles.card_wrap} ${isHover && styles.hover_card}`}>
                 <ConstructorElement text={name} price={price} thumbnail={image} />
