@@ -5,10 +5,17 @@ import { useSelector } from 'react-redux';
 
 function OrderDetails() {
     const orderNumber = useSelector(store => store.modalOrder.orderNumber);
+    const isLoading = useSelector(store => store.modalOrder.dataRequest);
+
     return (
         <>
+            { isLoading && 
+                <p className={`${styles.order_number} text text_type_main-large mb-8 mt-30`}>Выбираем номер...</p>
+            }
             <div className={styles.wrap_modal}>
+            { !isLoading &&  
                 <p className={`${styles.order_number} text text_type_digits-large mb-8 mt-30`}>{orderNumber}</p>
+            }
                 <p className="text text_type_main-medium mb-15">идентификатор заказа</p>
                 <div style={{ backgroundImage: `url(${doneIcon})`}} className={`${styles.check_icon} mb-15`}>
                     <CheckMarkIcon type="primary" />

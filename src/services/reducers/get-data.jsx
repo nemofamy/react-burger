@@ -4,7 +4,8 @@ import {
     GET_DATA_ERROR, 
     INGREDIENT_AMOUNT_INCREASE, 
     INGREDIENT_AMOUNT_DECREASE,
-    BUN_AMOUNT_CHANGE 
+    BUN_AMOUNT_CHANGE,
+    CONSTRUCTOR_DATA_RESET 
     } from "../actions/get-data.jsx";
 
 
@@ -70,6 +71,13 @@ export const getData = (state = initialState, action) => {
                         return { ...item, amount: 0 } 
                     }
                     return item;
+                })
+            };
+        case CONSTRUCTOR_DATA_RESET:
+            return {
+                ...state,
+                data: state.data.map(item => {
+                    return {...item, amount: 0}
                 })
             };
         default:

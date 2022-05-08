@@ -6,9 +6,9 @@ import OrderDetails from '../modals/order-details';
 import { useDrop } from "react-dnd";
 import { 
     ADD_INGREDIENT_IN_CONSTRUCTOR,
-    BUN_SELECTOR 
+    BUN_SELECTOR
     } from '../../services/actions/burger-constructor';
-import { INGREDIENT_AMOUNT_INCREASE, BUN_AMOUNT_CHANGE } from '../../services/actions/get-data';
+import { INGREDIENT_AMOUNT_INCREASE, BUN_AMOUNT_CHANGE, CONSTRUCTOR_DATA_RESET  } from '../../services/actions/get-data';
 import { useDispatch, useSelector } from 'react-redux';
 import BurgerCard from './burger-card';
 import { OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL } from '../../services/actions/modal-order';
@@ -24,7 +24,6 @@ function BurgerConstructor () {
 
     // проверяем количество булок в сторе
     const isBunSelected = useSelector(store => store.getData.data).filter(el => el.type === 'bun').reduce((acc, el) => el.amount + acc, 0);
-
     
     // получаем массив для отправки запроса заказа, вытаскиваем _id ингредиентов в конструкторе,
     // затем "обкладываем" выбранными булками
@@ -34,7 +33,7 @@ function BurgerConstructor () {
     const onDropHandler = (item) => {
         if (item.type !== 'bun') {
             const uuid = uuidv4();
-            item = {...item, uuid: uuid};
+            item = {...item, uuid: uuid, amount: undefined}; 
             dispatch({
                 type: ADD_INGREDIENT_IN_CONSTRUCTOR,
                 payload: { item }
@@ -79,6 +78,9 @@ function BurgerConstructor () {
     const closeModal = () => {
         dispatch({
             type: CLOSE_ORDER_MODAL
+        });
+        dispatch({
+            type: CONSTRUCTOR_DATA_RESET
         })
     }
 
@@ -110,7 +112,7 @@ function BurgerConstructor () {
             </div>
             }
             <div className={`${styles.scroll_container} pr-2`}>
-                {
+                { 
                     data.map(function (element, index) {
                         if (element.type !== "bun") {
                             return (

@@ -4,6 +4,7 @@ import {
     BUN_SELECTOR,
     CHANGE_ELEMENT_ORDER
 } from "../actions/burger-constructor";
+import { CONSTRUCTOR_DATA_RESET } from "../actions/get-data.jsx";
 
 const initialState = {
     data: [],
@@ -42,6 +43,11 @@ export const burgerConstructor = (state = initialState, action) => {
                 ...state,
                 data: state.data.map((item, index) =>  
                     index === dragIndex ? hoverElement : index === hoverIndex ? dragElement : item)
+            };
+        case CONSTRUCTOR_DATA_RESET: 
+            return {
+                ...state,
+                data: []
             };
         default: 
             return state;
