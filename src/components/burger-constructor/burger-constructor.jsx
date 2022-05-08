@@ -12,7 +12,7 @@ import { INGREDIENT_AMOUNT_INCREASE, BUN_AMOUNT_CHANGE } from '../../services/ac
 import { useDispatch, useSelector } from 'react-redux';
 import BurgerCard from './burger-card';
 import { OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL } from '../../services/actions/modal-order';
-import getOrderData from '../../services/get-order-data';
+import getOrderData from '../../services/actions/modal-order';
 
 
 function BurgerConstructor () {
