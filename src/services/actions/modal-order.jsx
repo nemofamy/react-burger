@@ -1,4 +1,5 @@
 import { API_ADDRESS } from "./get-data";
+import _checkResponse from "../utilities/check-response";
 
 export const OPEN_ORDER_MODAL = 'OPEN_ORDER_MODAL';
 export const CLOSE_ORDER_MODAL = 'CLOSE_ORDER_MODAL';
@@ -20,19 +21,13 @@ const getOrderData = (constructorData) => {
                       "ingredients": constructorData 
                    }
                 )
-             });
-            if (res.ok) {
-                const dataset = await res.json();
-                if (dataset.success) {
-                    dispatch({
-                        type: GET_ORDER_NUMBER_SUCCESS,
-                        payload: dataset.order.number
-                    });
-                } else {
-                    console.log('Неудачный запрос данных');
-                    dispatch({type: GET_ORDER_NUMBER_FAILED});
-                    return Promise.reject(res);
-                }
+             });       
+            const dataset = await _checkResponse(res);
+            if (dataset.success) {
+                dispatch({
+                    type: GET_ORDER_NUMBER_SUCCESS,
+                    payload: dataset.order.number
+                });
             }
         } catch (err) {
             dispatch({type: GET_ORDER_NUMBER_FAILED});

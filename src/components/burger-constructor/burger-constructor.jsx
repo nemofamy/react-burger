@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { ConstructorElement, Button }  from '@ya.praktikum/react-developer-burger-ui-components';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './burger-constructor.module.css';
@@ -7,12 +6,14 @@ import OrderDetails from '../modals/order-details';
 import { useDrop } from "react-dnd";
 import { 
     ADD_INGREDIENT_IN_CONSTRUCTOR,
-    BUN_SELECTOR } from '../../services/actions/burger-constructor';
+    BUN_SELECTOR 
+    } from '../../services/actions/burger-constructor';
 import { INGREDIENT_AMOUNT_INCREASE, BUN_AMOUNT_CHANGE } from '../../services/actions/get-data';
 import { useDispatch, useSelector } from 'react-redux';
 import BurgerCard from './burger-card';
 import { OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL } from '../../services/actions/modal-order';
 import getOrderData from '../../services/actions/modal-order';
+import { v4 as uuidv4 } from 'uuid';
 
 
 function BurgerConstructor () {
@@ -21,6 +22,10 @@ function BurgerConstructor () {
     const bun = useSelector(store => store.burgerConstructor.bun);
     const isModalVisible = useSelector(store => store.modalOrder.isVisible);
 
+    // проверяем количество булок в сторе
+    const isBunSelected = useSelector(store => store.getData.data).filter(el => el.type === 'bun').reduce((acc, el) => el.amount + acc, 0);
+
+    
     // получаем массив для отправки запроса заказа, вытаскиваем _id ингредиентов в конструкторе,
     // затем "обкладываем" выбранными булками
     let constructorDataIdenties = data.map(item => item._id);
@@ -28,8 +33,8 @@ function BurgerConstructor () {
 
     const onDropHandler = (item) => {
         if (item.type !== 'bun') {
-            const elementId = String(Date.now());
-            item = {...item, elementId: elementId};
+            const uuid = uuidv4();
+            item = {...item, uuid: uuid};
             dispatch({
                 type: ADD_INGREDIENT_IN_CONSTRUCTOR,
                 payload: { item }
@@ -88,6 +93,12 @@ function BurgerConstructor () {
 
     return (
         <section className={`${styles.wrap}  ${isHover && styles.hovered_wrap} pl-4 pt-25 pr-6`} ref={dropTarget}>
+            { isBunSelected === 0 &&
+                <div className={styles.empty_constructor}>
+                    <p className={styles.empty_constructor_text}>Пожалуйста, перенесите сюда булку и ингредиенты для создания заказа</p>
+                </div>
+            }
+            { isBunSelected > 0 &&
             <div className={`${styles.burger_element_top} ${styles.burger_element}`}>
                 <ConstructorElement 
                     type="top"
@@ -97,12 +108,13 @@ function BurgerConstructor () {
                     thumbnail={bun.image}
                 />
             </div>
+            }
             <div className={`${styles.scroll_container} pr-2`}>
                 {
                     data.map(function (element, index) {
                         if (element.type !== "bun") {
                             return (
-                                <BurgerCard key={index} index={index} element={element}/>
+                                <BurgerCard key={element.uuid} index={index} element={element}/>
                             );
                         } else {
                             return null;
@@ -110,32 +122,36 @@ function BurgerConstructor () {
                     })
                 }
             </div>
-            <div className={`${styles.burger_element_bottom} ${styles.burger_element}`}>
-                <ConstructorElement 
-                    type="bottom"
-                    isLocked={true}
-                    text={`${bun.name} (низ)`}
-                    price={bun.price}
-                    thumbnail={bun.image}
-                />
-            </div>
-            
-            <div className={`${styles.checkout_line} mt-10 mb-15`}>
+            { isBunSelected > 0 &&
+                <div className={`${styles.burger_element_bottom} ${styles.burger_element}`}>
+                    <ConstructorElement 
+                        type="bottom"
+                        isLocked={true}
+                        text={`${bun.name} (низ)`}
+                        price={bun.price}
+                        thumbnail={bun.image}
+                    />
+                </div>
+            }
 
-                <div className={`${styles.cost_element} mr-10`}>
-                    <p className="text text_type_digits-medium">{totalCostCalculate()}</p>
-                    <div className={styles.cost_icon}>
-                        <CurrencyIcon type="primary" />
+            { isBunSelected > 0 &&
+                <div className={`${styles.checkout_line} mt-10 mb-15`}>
+
+                    <div className={`${styles.cost_element} mr-10`}>
+                        <p className="text text_type_digits-medium">{totalCostCalculate()}</p>
+                        <div className={styles.cost_icon}>
+                            <CurrencyIcon type="primary" />
+                        </div>
                     </div>
-                </div>
 
-                <div className={`${styles.order_button_wrap} mr-6`} >
-                    <Button type="primary" size="medium" className={styles.order_button} onClick={openModal}>
-                        <p className="text text_type_main-default">Оформить заказ</p>
-                    </Button>
-                </div>
-                
-            </div>
+                    <div className={`${styles.order_button_wrap} mr-6`} >
+                        <Button type="primary" size="medium" className={styles.order_button} onClick={openModal}>
+                            <p className="text text_type_main-default">Оформить заказ</p>
+                        </Button>
+                    </div>
+                    
+                </div> 
+            }
 
             {   isModalVisible &&
                 <>

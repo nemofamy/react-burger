@@ -1,3 +1,5 @@
+import _checkResponse from "../utilities/check-response";
+
 export const GET_DATA_REQUEST = 'GET_DATA_REQUEST';
 export const GET_DATA_SUCCESS = 'GET_DATA_SUCCESS';
 export const GET_DATA_ERROR = 'GET_DATA_ERROR';
@@ -12,25 +14,13 @@ export const getInitialData = () => {
       dispatch({type: GET_DATA_REQUEST});
       try {
          const res = await fetch(`${API_ADDRESS}ingredients`);
-         if (res.ok) {
-            const dataset = await res.json();
+         const dataset = await _checkResponse(res);
             if (dataset.success) {
                dispatch({
                   type: GET_DATA_SUCCESS,
                   payload: dataset.data
                });
-               dispatch({
-                  type: BUN_AMOUNT_CHANGE,
-                  payload: {
-                     _id: '60d3b41abdacab0026a733c6'
-                  }
-               });
             }
-         } else {
-            console.log('Неудачный запрос данных');
-            dispatch({type: GET_DATA_ERROR});
-            return Promise.reject(res);
-         }
       } catch (err) {
          dispatch({type: GET_DATA_ERROR});
          console.log(`Что-то пошло не так: ${err}`); 

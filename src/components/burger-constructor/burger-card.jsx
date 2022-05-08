@@ -9,13 +9,13 @@ import  styles  from './burger-card.module.css';
 const BurgerCard = (props) => {
 
     const index = props.index;
-    const { elementId, _id, name, price, image } = props.element;
+    const { uuid, _id, name, price, image } = props.element;
     
     const dispatch = useDispatch();
 
     const [{ isDrag }, drag] = useDrag({
         type: 'constructorCard',
-        item: { index, elementId, _id, name, price, image },
+        item: { index, uuid, _id, name, price, image },
         collect: monitor => ({
             isDrag: monitor.isDragging()
         })
@@ -60,7 +60,7 @@ const BurgerCard = (props) => {
     return (
         <div 
             ref={dragDropRef}
-            id={elementId} 
+            id={uuid} 
             _id={_id} 
             className={`${styles.burger_element} ${ isDrag && styles.draging_card}`} 
             onClick={onClick} 

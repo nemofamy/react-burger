@@ -25,7 +25,7 @@ export const burgerConstructor = (state = initialState, action) => {
         case REMOVE_INGREDIENT_IN_CONCTRUCTOR:
             return {
                 ...state,
-                data: state.data.filter((item) => item.elementId !== action.payload ? true : false),
+                data: state.data.filter(item => item.uuid !== action.payload ? true : false),
             };
         case BUN_SELECTOR:
             return {

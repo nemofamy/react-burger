@@ -61,3 +61,10 @@
     opacity: 0.6;
 }
 
+.empty_constructor {
+    width: 583px;
+}
+.empty_constructor_text {
+    display: block;
+    width: 350px;
+}
