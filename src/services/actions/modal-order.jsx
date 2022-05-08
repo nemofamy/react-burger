@@ -1,5 +1,6 @@
 import { API_ADDRESS } from "./get-data";
-import _checkResponse from "../utilities/check-response";
+import checkResponse from "../utilities/check-response";
+import checkSuccess from "../utilities/check-success";
 
 export const OPEN_ORDER_MODAL = 'OPEN_ORDER_MODAL';
 export const CLOSE_ORDER_MODAL = 'CLOSE_ORDER_MODAL';
@@ -22,8 +23,8 @@ const getOrderData = (constructorData) => {
                    }
                 )
              });       
-            const dataset = await _checkResponse(res);
-            if (dataset.success) {
+            const dataset = await checkResponse(res).json();
+            if (checkSuccess(dataset)) {
                 dispatch({
                     type: GET_ORDER_NUMBER_SUCCESS,
                     payload: dataset.order.number

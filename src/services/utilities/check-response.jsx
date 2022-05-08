@@ -1,6 +1,6 @@
-const  _checkResponse = (res) => {
-    if (res.ok) return res.json();
+const  checkResponse = (res) => {
+    if (res.ok) return res;
     return Promise.reject(`Ошибка ${res.status}`);
 }
 
-export default _checkResponse;
+export default checkResponse;
