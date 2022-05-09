@@ -3,7 +3,7 @@
     flex-direction: column;
     gap: 10px;
     align-items: flex-end;
-    height: calc(100vh - 230px);
+    height: calc(100vh - 250px);
 }
 
 .scroll_container {
@@ -11,7 +11,6 @@
     flex-direction: column;
     gap: 10px;
     overflow-y: scroll;
-    min-height: 350px;
     width: 100%;
 }
 
@@ -37,15 +36,6 @@
     height: 64px;
 }
 
-.burger_element {
-    align-self: flex-start;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    width: 100%;
-    cursor: pointer;
-}
-
 .burger_element_top {
     margin-left: 25px;
     margin-right: 22px;
@@ -54,10 +44,6 @@
 .burger_element_bottom {
     margin-left: 25px;
     margin-right: 22px;
-}
-
-.burger_element:first-child {
-    width: auto;
 }
 
 .cost_element {
@@ -71,3 +57,14 @@
     width: 33px;
 }
 
+.hovered_wrap {
+    opacity: 0.6;
+}
+
+.empty_constructor {
+    width: 583px;
+}
+.empty_constructor_text {
+    display: block;
+    width: 350px;
+}

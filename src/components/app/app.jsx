@@ -3,42 +3,27 @@ import styles from './app.module.css';
 import AppHeader from '../app-header/app-header';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
-
-
-const BURGER_API_ADDRESS = 'https://norma.nomoreparties.space/api/ingredients';
-
+import { getInitialData } from '../../services/actions/get-data';
+import { useDispatch } from 'react-redux';
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
-   const [data, setData] = React.useState([]);
+   const dispatch = useDispatch();
 
    React.useEffect(() => {
-      const getData = async () => {
-         try {
-            const res = await fetch(BURGER_API_ADDRESS);
-            if (res.ok) {
-               const dataset = await res.json();
-               if (dataset.success) {
-                  setData(dataset.data);
-               }
-            } else {
-               console.log('Неудачный запрос данных');
-               return Promise.reject(res);
-            }
-         } catch (err) {
-            console.log(`Что-то пошло не так: ${err}`);
-         }
-      }
-      getData();
-      
-   },[]);
+      dispatch(getInitialData());
+   },[dispatch]);
 
    return (
     <>
       <AppHeader activePage="Конструктор" />
-      <main className={styles.app_main_content}>
-         <BurgerIngredients data={data} />
-         <BurgerConstructor data={data} />
-      </main>
+      <DndProvider backend={HTML5Backend}>
+         <main className={styles.app_main_content}>
+            <BurgerIngredients />
+            <BurgerConstructor />
+         </main>
+      </DndProvider>
     </>
    );
 }
