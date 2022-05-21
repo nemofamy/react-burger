@@ -19,3 +19,7 @@ code {
     monospace;
 }
 
+
+.input_size_default {
+  width: 480px;
+}
