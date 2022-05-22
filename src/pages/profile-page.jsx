@@ -1,6 +1,6 @@
 import styles from './profile-page.module.css';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import ProfileLink from '../profile-link/profile-link';
+import ProfileLink from '../components/profile-link/profile-link';
 
 
 const ProfilePage = () => {

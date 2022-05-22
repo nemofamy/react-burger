@@ -25,7 +25,7 @@ export const getInitialData = () => {
         }
       } catch (err) {
         dispatch({type: GET_DATA_ERROR});
-        console.log(`Что-то пошло не так: ${err}`); 
+        console.error(`Что-то пошло не так: ${err}`); 
       }
    }
- }
+ } 

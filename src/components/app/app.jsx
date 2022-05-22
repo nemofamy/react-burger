@@ -2,16 +2,16 @@ import React from 'react';
 import { getInitialData } from '../../services/actions/get-data';
 import { useDispatch } from 'react-redux';
 import { Routes, Route } from 'react-router-dom';
-import Layout from '../pages/layout';
-import LoginPage from '../pages/login-page';
-import HomePage from '../pages/home-page';
-import RegisterPage from '../pages/register-page';
-import ForgotPasswordPage from '../pages/forgot-password-page';
-import ResetPasswordPage from '../pages/reset-password-page';
-import ProfilePage from '../pages/profile-page';
-import IngredientPage from '../pages/ingredient-page';
-import OrderFeedPage from '../pages/order-feed-page';
-import NotFoundPage from '../pages/not-found-page';
+import Layout from '../../pages/layout';
+import LoginPage from '../../pages/login-page';
+import HomePage from '../../pages/home-page';
+import RegisterPage from '../../pages/register-page';
+import ForgotPasswordPage from '../../pages/forgot-password-page';
+import ResetPasswordPage from '../../pages/reset-password-page';
+import ProfilePage from '../../pages/profile-page';
+import IngredientPage from '../../pages/ingredient-page';
+import OrderFeedPage from '../../pages/order-feed-page';
+import NotFoundPage from '../../pages/not-found-page';
 
 function App() {
    const dispatch = useDispatch();

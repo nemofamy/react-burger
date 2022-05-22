@@ -1,4 +1,4 @@
-import AppHeader from '../app-header/app-header';
+import AppHeader from '../components/app-header/app-header';
 import { Outlet } from 'react-router-dom';
 
 const Layout = () => {
