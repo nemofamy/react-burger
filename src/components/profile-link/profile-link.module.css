@@ -1,0 +1,9 @@
+.link {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+    width: 320px;
+    height: 64px;
+    color: #fff;
+    text-decoration: none;
+}

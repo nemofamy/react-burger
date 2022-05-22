@@ -1,16 +1,17 @@
 import styles from './profile-page.module.css';
 import { Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { NavLink } from 'react-router-dom';
+import ProfileLink from '../profile-link/profile-link';
+
 
 const ProfilePage = () => {
     return (
         <div className={styles.wrap}>
             <div className={styles.form}>
                 <nav className={styles.navigation}>
-                    <li className="text text_type_main-medium">Профиль</li>
-                    <li className="text text_type_main-medium">История заказов</li>
-                    <li className="text text_type_main-medium">Выход</li>
-                    <p className="text text_type_main-default text_color_inactive">В этом разделе вы можете изменить свои персональные данные</p>
+                    <ProfileLink to={'/profile'}>Профиль</ProfileLink>
+                    <ProfileLink to={'/order-feed'}>История заказов</ProfileLink>
+                    <ProfileLink to={'/'}>Выход</ProfileLink>
+                    <p className='text text_type_main-default text_color_inactive mt-20'>В этом разделе вы можете изменить свои персональные данные</p>
                 </nav>
                 <div className={`mb-6`}>
                     <Input

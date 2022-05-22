@@ -20,19 +20,6 @@
     left: -380px;
 }
 
-.navigation li {
-    display: flex;
-    align-items: center;
-    list-style-type: none;
-    width: 320px;
-    height: 64px;
-}
-
 .navigation p {
     width: 320px;
-    margin-top: 80px;
-}
-
-.active {
-    color: red;
 }
