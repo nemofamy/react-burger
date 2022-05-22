@@ -1,27 +1,31 @@
 import { Button, Input, EmailInput, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import styles from './register-page.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerRequest } from '../services/actions/register';
 
 const RegisterPage = () => {
-    //обработка имени
-    const [name, setName] = useState('value');
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const user = useSelector(state => state.login.user.name);
     const inputRef = useRef(null);
-    const onIconClick = () => {
-        setTimeout(() => inputRef.current.focus(), 0);
-        alert('Icon Click Callback');
-    };
-    // обработка почты
+    const [name, setName] = useState('value');
     const [email, setEmail] = useState('');
-    const onEmailChange = e => {
-        setEmail(e.target.value);
-    };
-    //обработка пароля
     const [password, setPassword] = useState('password');
-    const onPasswordChange = e => {
-        setPassword(e.target.value);
-    };
+    
+    const registerAttempt = () => {
+        dispatch(registerRequest(name, email, password));
+        setName('');
+        setEmail('');
+        setPassword('');
+    }
 
+    useEffect(() => {
+        if (user) {
+            navigate('/');
+        }
+    },[user]); 
     return (
         <div className={styles.wrap}>
             <div className={styles.form}>
@@ -35,7 +39,6 @@ const RegisterPage = () => {
                         name={'name'}
                         error={false}
                         ref={inputRef}
-                        onIconClick={onIconClick}
                         errorText={'Ошибка'}
                         size={'default'}
                     />
@@ -49,15 +52,14 @@ const RegisterPage = () => {
                         name={'email'}
                         error={false}
                         ref={inputRef}
-                        onIconClick={onEmailChange}
                         errorText={'Ошибка'}
                         size={'default'}
                     />
                 </div>
                 <div className={`mb-6`}>
-                    <PasswordInput onChange={onPasswordChange} name={'password'} />
+                    <PasswordInput onChange={e => setPassword(e.target.value)} name={'password'} />
                 </div>
-                <Button type="primary" size="medium">
+                <Button onClick={registerAttempt} type="primary" size="medium">
                     Зарегистрироваться
                 </Button>
                 <p className={styles.note}>Уже зарегистрированы? <Link className={styles.link} to={'../login'}>Войти</Link></p>

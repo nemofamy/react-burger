@@ -2,19 +2,18 @@ import { Button, Input, EmailInput, PasswordInput } from '@ya.praktikum/react-de
 import { useState, useRef } from 'react';
 import styles from './login-page.module.css';
 import { Link } from 'react-router-dom';
+import { loginRequest } from '../services/actions/login';
+import { useDispatch } from 'react-redux';
 
 const LoginPage = () => {
     const inputRef = useRef(null);
-    // обработка почты
+    const dispatch = useDispatch();
     const [email, setEmail] = useState('');
-    const onEmailChange = e => {
-        setEmail(e.target.value);
-    };
-    //обработка пароля
-    const [password, setPassword] = useState('password');
-    const onPasswordChange = e => {
-        setPassword(e.target.value);
-    };
+    const [password, setPassword] = useState('');
+
+    const tryAuth = () => {
+        dispatch(loginRequest(email, password));
+    }
 
     return (
         <div className={styles.wrap}>
@@ -29,15 +28,14 @@ const LoginPage = () => {
                         name={'email'}
                         error={false}
                         ref={inputRef}
-                        onIconClick={onEmailChange}
                         errorText={'Ошибка'}
                         size={'default'}
                     />
                 </div>
                 <div className={`mb-6`}>
-                    <PasswordInput onChange={onPasswordChange} name={'password'} />
+                    <PasswordInput onChange={e => setPassword(e.target.value)} name={'password'} />
                 </div>
-                <Button type="primary" size="medium">
+                <Button onClick={tryAuth} type="primary" size="medium">
                     Войти
                 </Button>
                 <p className={styles.note}>Вы — новый пользователь? <Link className={styles.link} to={'../register'}>Зарегистрироваться</Link></p>

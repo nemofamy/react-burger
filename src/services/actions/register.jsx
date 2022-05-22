@@ -1,17 +1,17 @@
+import { API_ADDRESS } from './get-data';
 import checkResponse from '../utilities/check-response';
 import checkSuccess from '../utilities/check-success';
-import { API_ADDRESS } from './get-data';
+import { LOGIN_SUCCESS } from './login';
 import { setCookie } from '../utilities/set-cookie';
 
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_ERROR = 'LOGIN_ERROR';
+export const REGISTER_REQUEST = 'REGISTER_REQUEST';
+export const REGISTER_ERROR = 'REGISTER_ERROR';
 
-export const loginRequest = (email, password) => {
+export const registerRequest = (name, email, password) => {
     return async (dispatch) => {
-        dispatch({type: LOGIN_REQUEST});
+        dispatch({type: REGISTER_REQUEST});
         try {
-            const res = await fetch(`${API_ADDRESS}auth/login`, {
+            const res = await fetch(`${API_ADDRESS}auth/register`, {
                 method: 'POST',
                 mode: 'cors',
                 cache: 'no-cache',
@@ -23,7 +23,8 @@ export const loginRequest = (email, password) => {
                 referrerPolicy: 'no-referrer',
                 body: JSON.stringify({
                     'email': email,
-                    'password': password
+                    'password': password,
+                    'name': name
                 })
             });
             const dataset = await checkResponse(res).json();
@@ -36,12 +37,12 @@ export const loginRequest = (email, password) => {
                         accessToken: authToken
                     }
                 });
-                
                 setCookie('token', authToken);
             }
+
         } catch (err) {
-            dispatch({type: LOGIN_ERROR});
-            console.error(`Что-то пошло не так: ${err}`);
+            dispatch({type: REGISTER_ERROR});
+            console.error('Ошибка регистрации: ', err);
         }
     }
 }
