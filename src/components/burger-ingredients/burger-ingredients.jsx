@@ -44,7 +44,7 @@ function BurgerIngredients () {
         return arrNames[arrNames.length - 1];
     }
 
-    // принимает мыссив ссылки на разделы (с названиями)
+    // принимает массив ссылки на разделы (с названиями)
     const onScroll = (arrRefs) => {
         const currentScrollHeight = scrollRef.current.scrollTop;
 

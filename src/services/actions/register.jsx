@@ -32,10 +32,7 @@ export const registerRequest = (name, email, password) => {
                 const authToken = dataset.accessToken.split('Bearer ')[1];
                 dispatch({
                     type: LOGIN_SUCCESS,
-                    payload: {
-                        ...dataset,
-                        accessToken: authToken
-                    }
+                    payload: dataset
                 });
                 setCookie('token', authToken);
             }

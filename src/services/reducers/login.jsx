@@ -1,26 +1,33 @@
 import {
-    LOGIN_REQUEST,
+    AUTH_REQUEST,
+    AUTH_ERROR,
     LOGIN_SUCCESS,
-    LOGIN_ERROR
+    LOGOUT_SUCCESS,
+
 } from '../actions/login';
 
 const initialState = {
-    loginRequest: false,
-    loginFailed: false,
+    request: false,
+    failed: false,
     user: {
         email: '',
         name: ''
-    },
-    token: ''
+    }
 }
 
 export const login = (state = initialState, action) => {
     switch (action.type) {
-        case LOGIN_REQUEST:
+        case AUTH_REQUEST:
             return {
                 ...state,
-                loginRequest: true,
-                loginFailed: false
+                request: true,
+                failed: false
+            };
+        case AUTH_ERROR:
+            return {
+                ...state,
+                request: false,
+                failed: true
             };
         case LOGIN_SUCCESS:
             return {
@@ -29,16 +36,20 @@ export const login = (state = initialState, action) => {
                     email: action.payload.user.email,
                     name: action.payload.user.name
                 },
-                token: action.payload.accessToken,
-                loginRequest: false,
-                loginFailed: false
+                request: false,
+                failed: false
             };
-        case LOGIN_ERROR:
+        case LOGOUT_SUCCESS:
             return {
                 ...state,
-                loginRequest: false,
-                loginFailed: true
+                user: {
+                    email: '',
+                    name: ''
+                },
+                request: false,
+                failed: false
             };
+
         default:
             return state;
     }

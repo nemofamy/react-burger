@@ -12,6 +12,7 @@ import ProfilePage from '../../pages/profile-page';
 import IngredientPage from '../../pages/ingredient-page';
 import OrderFeedPage from '../../pages/order-feed-page';
 import NotFoundPage from '../../pages/not-found-page';
+import ProtectedRoute from '../protected-route/protected-route';
 
 function App() {
    const dispatch = useDispatch();
@@ -29,8 +30,16 @@ function App() {
             <Route path='register' element={<RegisterPage />} />
             <Route path='forgot-password' element={<ForgotPasswordPage />} />
             <Route path='reset-password' element={<ResetPasswordPage />} />
-            <Route path='profile' element={<ProfilePage />} />
-            <Route path='order-feed' element={<OrderFeedPage />} />
+            <Route path='profile' element={
+               <ProtectedRoute>
+                  <ProfilePage />
+               </ProtectedRoute>
+            } />
+            <Route path='order-feed' element={
+               <ProtectedRoute>
+                  <OrderFeedPage />
+               </ProtectedRoute>
+            } />
             <Route path='ingredients/:id' element={<IngredientPage />} />
             <Route path='*' element={<NotFoundPage />} />
          </Route>
