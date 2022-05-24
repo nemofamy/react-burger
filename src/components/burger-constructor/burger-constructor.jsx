@@ -14,9 +14,11 @@ import BurgerCard from './burger-card';
 import { OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL } from '../../services/actions/modal-order';
 import getOrderData from '../../services/actions/modal-order';
 import { v4 as uuidv4 } from 'uuid';
+import { Navigate } from 'react-router-dom';
 
 
 function BurgerConstructor () {
+    const user = useSelector(state => state.login.user.name);
     const dispatch = useDispatch();
     const data = useSelector(store => store.burgerConstructor.data);
     const bun = useSelector(store => store.burgerConstructor.bun);
@@ -155,12 +157,17 @@ function BurgerConstructor () {
                 </div> 
             }
 
-            {   isModalVisible &&
+            {   isModalVisible && user &&
                 <>
                     <Modal closeModal={closeModal} isVisible={isModalVisible} header="">
                         <OrderDetails />  
                     </Modal>
                 </>
+            }
+
+            {
+                isModalVisible && !user &&
+                <Navigate to='/login' state={{fromPage: '/', replace: true}} />
             }
         </section>
     );

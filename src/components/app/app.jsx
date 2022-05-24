@@ -13,9 +13,15 @@ import IngredientPage from '../../pages/ingredient-page';
 import OrderFeedPage from '../../pages/order-feed-page';
 import NotFoundPage from '../../pages/not-found-page';
 import ProtectedRoute from '../protected-route/protected-route';
+import NoAuthRoute from '../no-auth-route/no-auth-route';
+import { getUserData } from '../../services/actions/login';
 
 function App() {
    const dispatch = useDispatch();
+
+   React.useEffect(() => {
+      dispatch(getUserData())
+   }, [dispatch]);
 
    React.useEffect(() => {
       dispatch(getInitialData());
@@ -26,10 +32,26 @@ function App() {
       <Routes>
          <Route path='/' element={<Layout />}>
             <Route index element={<HomePage />} />
-            <Route path='login' element={<LoginPage />} />
-            <Route path='register' element={<RegisterPage />} />
-            <Route path='forgot-password' element={<ForgotPasswordPage />} />
-            <Route path='reset-password' element={<ResetPasswordPage />} />
+            <Route path='login' element={
+               <NoAuthRoute>
+                  <LoginPage />
+               </NoAuthRoute>     
+            } />
+            <Route path='register' element={
+               <NoAuthRoute>
+                  <RegisterPage />
+               </NoAuthRoute>  
+            } />
+            <Route path='forgot-password' element={
+               <NoAuthRoute>
+                  <ForgotPasswordPage />     
+               </NoAuthRoute>
+            } />
+            <Route path='reset-password' element={
+               <NoAuthRoute>
+                  <ResetPasswordPage />
+               </NoAuthRoute>
+            } />
             <Route path='profile' element={
                <ProtectedRoute>
                   <ProfilePage />
