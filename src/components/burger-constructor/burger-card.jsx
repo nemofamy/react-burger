@@ -75,14 +75,14 @@ function BurgerCard(props) {
 }
 
 BurgerCard.propTypes = {
-    index: PropTypes.string.isRequired,
-    element: {
+    index: PropTypes.number.isRequired,
+    element: PropTypes.shape({
         uuid: PropTypes.string.isRequired, 
         _id: PropTypes.string.isRequired, 
         name: PropTypes.string.isRequired, 
         price: PropTypes.number.isRequired, 
         image: PropTypes.string.isRequired
-    }
+    })
 }
 
 export default BurgerCard;
