@@ -18,7 +18,7 @@ import { Navigate } from 'react-router-dom';
 
 
 function BurgerConstructor () {
-    const user = useSelector(state => state.login.user.name);
+    const user = useSelector(state => state.auth.user.name);
     const dispatch = useDispatch();
     const data = useSelector(store => store.burgerConstructor.data);
     const bun = useSelector(store => store.burgerConstructor.bun);

@@ -1,7 +1,7 @@
 import { API_ADDRESS } from './get-data';
 import checkResponse from '../utilities/check-response';
 import checkSuccess from '../utilities/check-success';
-import { LOGIN_SUCCESS } from './login';
+import { LOGIN_SUCCESS } from './auth';
 import { setCookie } from '../utilities/set-cookie';
 
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';

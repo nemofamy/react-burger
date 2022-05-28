@@ -8,7 +8,7 @@ import { registerRequest } from '../services/actions/register';
 const RegisterPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const user = useSelector(state => state.login.user.name);
+    const user = useSelector(state => state.auth.user.name);
     const inputRef = useRef(null);
     const [name, setName] = useState('value');
     const [email, setEmail] = useState('');

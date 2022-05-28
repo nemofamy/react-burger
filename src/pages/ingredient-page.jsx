@@ -5,7 +5,7 @@ import styles from './ingredient-page.module.css';
 
 
 const IngredientPage = () => {
-    const dataRequest = useSelector(store => store.login.request);
+    const dataRequest = useSelector(store => store.auth.request);
     const params = useParams();
     const ingredientId = params.id.split(':')[1];
     const ingredientsData = useSelector(store => store.getData.data);

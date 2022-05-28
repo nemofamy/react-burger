@@ -1,11 +1,9 @@
 import styles from './profile-page.module.css';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import ProfileLink from '../components/profile-link/profile-link';
-import { logoutRequest, patchUser } from '../services/actions/login';
+import { logoutRequest, patchUser } from '../services/actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
-
-
 
 const ProfilePage = () => {
     const dispatch = useDispatch();
@@ -15,8 +13,8 @@ const ProfilePage = () => {
     }
 
     //стабильный юзер из хранилица
-    const userName = useSelector(state => state.login.user.name);
-    const userEmail = useSelector(state => state.login.user.email);
+    const userName = useSelector(state => state.auth.user.name);
+    const userEmail = useSelector(state => state.auth.user.email);
 
     //местная копия 
     const [name, setName] = useState(userName);

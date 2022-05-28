@@ -2,11 +2,11 @@ import { Button, Input, EmailInput, PasswordInput } from '@ya.praktikum/react-de
 import { useState, useRef, useEffect } from 'react';
 import styles from './login-page.module.css';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { loginRequest } from '../services/actions/login';
+import { loginRequest } from '../services/actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
 
 const LoginPage = () => {
-    const user = useSelector(state => state.login.user.name);
+    const user = useSelector(state => state.auth.user.name);
     const inputRef = useRef(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -18,6 +18,7 @@ const LoginPage = () => {
     const tryAuth = () => {
         dispatch(loginRequest(email, password));
     }
+
     useEffect(() => {
         if (user) {
             navigate(fromPage, {replace: true});

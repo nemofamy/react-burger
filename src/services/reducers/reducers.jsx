@@ -3,7 +3,7 @@ import { getData } from './get-data';
 import { burgerConstructor } from './burger-constructor';
 import { modalIngredient } from './modal-ingredient';
 import { modalOrder } from './modal-order';
-import { login } from './login';
+import { auth } from './auth';
 import { register } from './register';
 
 
@@ -12,7 +12,7 @@ export const rootReducer = combineReducers({
     burgerConstructor,
     modalIngredient,
     modalOrder,
-    login,
+    auth,
     register
 })
 

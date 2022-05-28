@@ -2,27 +2,16 @@ import { Button, Input, EmailInput, PasswordInput } from '@ya.praktikum/react-de
 import { useState, useRef } from 'react';
 import styles from './forgot-password-page.module.css';
 import { Link, useNavigate } from 'react-router-dom';
+import { passwordReset } from '../services/actions/auth';
 
 const ForgotPasswordPage = () => {
     const [value, setValue] = useState('');
     const inputRef = useRef(null);
     const navigate = useNavigate();
 
-    // тут нужны проверки и вообще эту историю лучше вынести в экшены
     const onButtonClick = async () => {
-        const res = await fetch('https://norma.nomoreparties.space/api/password-reset', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(
-                {
-                    "email": value
-                }
-            )
-        });
-        navigate('/reset-password');
-        console.log(res.json());
+        passwordReset(value);
+        navigate('/reset-password', {state: true});
     }
 
     return (

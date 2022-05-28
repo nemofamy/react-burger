@@ -1,17 +1,19 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useState, useRef } from 'react';
 import styles from './forgot-password-page.module.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation, Navigate } from 'react-router-dom';
 
 const ResetPasswordPage = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const isRigthPath = location.state;
 
-    // обработка почты
+
     const [token, setToken] = useState('');
     const onTokenChange = e => {
         setToken(e.target.value);
     };
-    //обработка пароля
+
     const [password, setPassword] = useState('');
     const onPasswordChange = e => {
         setPassword(e.target.value);
@@ -35,6 +37,12 @@ const ResetPasswordPage = () => {
         });
         navigate('/');
         console.log(res.json());
+    }
+
+    if (!isRigthPath) {
+        return (
+            <Navigate to={'../forgot-password'} replace />
+        );
     }
 
     return (

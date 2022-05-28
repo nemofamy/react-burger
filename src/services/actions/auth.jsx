@@ -10,7 +10,36 @@ export const AUTH_ERROR = 'AUTH_ERROR';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const GET_USER_DATA = 'GET_USER_DATA';
+export const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
 
+export const passwordReset = (value) => {
+    return async (dispatch) => {
+        dispatch({type: AUTH_REQUEST});
+        try {
+            const res = await fetch(`${API_ADDRESS}password-reset`, {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                redirect: 'follow',
+                referrerPolicy: 'no-referrer',
+                body: JSON.stringify({
+                    'email': value
+                })
+            });
+            const dataset = await checkResponse(res).json();
+            if (checkSuccess(dataset)) {
+                dispatch({ type: PASSWORD_RESET_SUCCESS });
+            }
+        } catch (err) {
+            dispatch({type: AUTH_ERROR});
+            console.error(`Ошибка при сбросе пароля: ${err}`);
+        }
+    }
+}
 export const getUserData = () => {
     return async (dispatch) => {
         dispatch({type: AUTH_REQUEST});

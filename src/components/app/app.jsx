@@ -13,9 +13,8 @@ import IngredientPage from '../../pages/ingredient-page';
 import OrderFeedPage from '../../pages/order-feed-page';
 import NotFoundPage from '../../pages/not-found-page';
 import ProtectedRoute from '../protected-route/protected-route';
-import { getUserData } from '../../services/actions/login';
+import { getUserData } from '../../services/actions/auth';
 import { useSelector } from 'react-redux';
-import { getCookie } from '../../services/utilities/get-cookie';
 
 function App() {
    const isModalVisible = useSelector(store => store.modalIngredient.isVisible);

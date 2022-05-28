@@ -3,8 +3,8 @@ import {
     AUTH_ERROR,
     LOGIN_SUCCESS,
     LOGOUT_SUCCESS,
-
-} from '../actions/login';
+    PASSWORD_RESET_SUCCESS
+} from '../actions/auth';
 
 const initialState = {
     request: false,
@@ -15,7 +15,7 @@ const initialState = {
     }
 }
 
-export const login = (state = initialState, action) => {
+export const auth = (state = initialState, action) => {
     switch (action.type) {
         case AUTH_REQUEST:
             return {
@@ -49,7 +49,12 @@ export const login = (state = initialState, action) => {
                 request: false,
                 failed: false
             };
-
+        case PASSWORD_RESET_SUCCESS:
+            return {
+                ...state,
+                request: false,
+                failed: false
+            }
         default:
             return state;
     }
