@@ -1,7 +1,7 @@
 import React from 'react';
 import { getInitialData } from '../../services/actions/get-data';
 import { useDispatch } from 'react-redux';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Link } from 'react-router-dom';
 import Layout from '../../pages/layout';
 import LoginPage from '../../pages/login-page';
 import HomePage from '../../pages/home-page';
@@ -13,10 +13,12 @@ import IngredientPage from '../../pages/ingredient-page';
 import OrderFeedPage from '../../pages/order-feed-page';
 import NotFoundPage from '../../pages/not-found-page';
 import ProtectedRoute from '../protected-route/protected-route';
-import NoAuthRoute from '../no-auth-route/no-auth-route';
 import { getUserData } from '../../services/actions/login';
+import { useSelector } from 'react-redux';
+import { getCookie } from '../../services/utilities/get-cookie';
 
 function App() {
+   const isModalVisible = useSelector(store => store.modalIngredient.isVisible);
    const dispatch = useDispatch();
 
    React.useEffect(() => {
@@ -33,37 +35,41 @@ function App() {
          <Route path='/' element={<Layout />}>
             <Route index element={<HomePage />} />
             <Route path='login' element={
-               <NoAuthRoute>
+               <ProtectedRoute needAuth={false}>
                   <LoginPage />
-               </NoAuthRoute>     
+               </ProtectedRoute>     
             } />
             <Route path='register' element={
-               <NoAuthRoute>
+               <ProtectedRoute needAuth={false}>
                   <RegisterPage />
-               </NoAuthRoute>  
+               </ProtectedRoute>  
             } />
             <Route path='forgot-password' element={
-               <NoAuthRoute>
+               <ProtectedRoute needAuth={false}>
                   <ForgotPasswordPage />     
-               </NoAuthRoute>
+               </ProtectedRoute>
             } />
             <Route path='reset-password' element={
-               <NoAuthRoute>
+               <ProtectedRoute needAuth={false}>
                   <ResetPasswordPage />
-               </NoAuthRoute>
+               </ProtectedRoute>
             } />
             <Route path='profile' element={
-               <ProtectedRoute>
+               <ProtectedRoute needAuth={true}>
                   <ProfilePage />
                </ProtectedRoute>
             } />
             <Route path='order-feed' element={
-               <ProtectedRoute>
+               <ProtectedRoute needAuth={true}>
                   <OrderFeedPage />
                </ProtectedRoute>
             } />
-            <Route path='ingredients/:id' element={<IngredientPage />} />
+            <Route path='/ingredients/:id' element={
+               isModalVisible ? <HomePage /> : <IngredientPage />
+            } /> 
+
             <Route path='*' element={<NotFoundPage />} />
+            
          </Route>
       </Routes>
     </>

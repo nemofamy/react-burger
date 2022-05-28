@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom';
+
 const NotFoundPage = () => {
     return (
         <>
-            <p>NotFoundPage</p>
+            <h1>404. Нет такой страницы. Начните <Link to={'/'}>сначала</Link></h1>
         </>
     );
 }

@@ -6,16 +6,18 @@ import { CLOSE_INGREDIENT_MODAL } from '../../services/actions/modal_ingredient'
 import IngredientDetails from '../modals/ingredient-details';
 import { useDispatch, useSelector } from 'react-redux';
 import IngredientsSection from './ingredients-section';
-
+import { useNavigate } from 'react-router-dom';
+ 
 function BurgerIngredients () {
+    const navigate = useNavigate();
     const ingredientModalData = useSelector(store => store.modalIngredient.data);
     const { name, image_large, calories, proteins, fat, carbohydrates } = ingredientModalData;
     const [currentTab, setCurrentTab] = React.useState('bun');
     const isModalVisible = useSelector(store => store.modalIngredient.isVisible);
     const dispatch = useDispatch();
 
-
     const closeModal = () => {
+        navigate(-1);
         dispatch({
             type: CLOSE_INGREDIENT_MODAL
         })
