@@ -35,6 +35,7 @@ export const registerRequest = (name, email, password) => {
                     payload: dataset
                 });
                 setCookie('token', authToken);
+                setCookie('refreshToken', dataset.refreshToken);
             }
 
         } catch (err) {

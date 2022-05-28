@@ -3,7 +3,8 @@ import {
     AUTH_ERROR,
     LOGIN_SUCCESS,
     LOGOUT_SUCCESS,
-    PASSWORD_RESET_SUCCESS
+    PASSWORD_RESET_SUCCESS,
+    TOKEN_UPDATE_SUCCESS
 } from '../actions/auth';
 
 const initialState = {
@@ -50,6 +51,12 @@ export const auth = (state = initialState, action) => {
                 failed: false
             };
         case PASSWORD_RESET_SUCCESS:
+            return {
+                ...state,
+                request: false,
+                failed: false
+            }
+        case TOKEN_UPDATE_SUCCESS:
             return {
                 ...state,
                 request: false,

@@ -11,6 +11,73 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const GET_USER_DATA = 'GET_USER_DATA';
 export const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
+export const TOKEN_UPDATE_SUCCESS ='TOKEN_UPDATE_SUCCESS';
+
+export const tokenUpdate = () => {
+    return async (dispatch) => {
+        console.log('tokenUpdate');
+        dispatch({type: AUTH_REQUEST});
+        try {
+            const res = await fetch(`${API_ADDRESS}auth/login`, {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                redirect: 'follow',
+                referrerPolicy: 'no-referrer',
+                body: JSON.stringify({
+                    'token': getCookie('refreshToken')
+                })
+            });
+            const dataset = await checkResponse(res).json();
+            if (checkSuccess(dataset)) {
+                const authToken = dataset.accessToken.split('Bearer ')[1];
+                dispatch({
+                    type: TOKEN_UPDATE_SUCCESS,
+                    payload: dataset
+                });
+                setCookie('refreshToken', dataset.refreshToken);
+                setCookie('token', authToken);
+            }
+        } catch (err) {
+            dispatch({type: AUTH_ERROR});
+            console.error(`Ошибка при обновлении токена: ${err}`);
+        }
+    }
+}
+
+export const passwordResetStep2 = (password, token) => {
+    return async (dispatch) => {
+        dispatch({type: AUTH_REQUEST});
+        try {
+            const res = await fetch(`${API_ADDRESS}password-reset`, {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                redirect: 'follow',
+                referrerPolicy: 'no-referrer',
+                body: JSON.stringify({
+                    'password': password,
+                    'token': token
+                })
+            });
+            const dataset = await checkResponse(res).json();
+            if (checkSuccess(dataset)) {
+                dispatch({ type: PASSWORD_RESET_SUCCESS });
+            }
+        } catch (err) {
+            dispatch({type: AUTH_ERROR});
+            console.error(`Ошибка при сбросе пароля (шаг 2): ${err}`);
+        }
+    }
+}
 
 export const passwordReset = (value) => {
     return async (dispatch) => {
@@ -40,10 +107,12 @@ export const passwordReset = (value) => {
         }
     }
 }
+
 export const getUserData = () => {
     return async (dispatch) => {
         dispatch({type: AUTH_REQUEST});
         try {
+            await tokenUpdate();
             const res = await fetch(`${API_ADDRESS}auth/user`, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -164,3 +233,4 @@ export const loginRequest = (email, password) => {
         }
     }
 }
+

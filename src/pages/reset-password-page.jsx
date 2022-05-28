@@ -1,13 +1,13 @@
 import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import styles from './forgot-password-page.module.css';
 import { Link, useNavigate, useLocation, Navigate } from 'react-router-dom';
+import { passwordResetStep2 } from '../services/actions/auth';
 
 const ResetPasswordPage = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const isRigthPath = location.state;
-
 
     const [token, setToken] = useState('');
     const onTokenChange = e => {
@@ -19,24 +19,9 @@ const ResetPasswordPage = () => {
         setPassword(e.target.value);
     };
 
-    // тут нужны проверки и вообще эту историю лучше вынести в экшены
-    // не кликабельна иконка показа пароля
     const onButtonClick = async () => {
-        console.log(`token: ${token} password: ${password}`);
-        const res = await fetch('https://norma.nomoreparties.space/api/password-reset/reset', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(
-                {
-                    "password": password,
-                    "token": token
-                }
-            )
-        });
-        navigate('/');
-        console.log(res.json());
+        passwordResetStep2(password, token);
+        navigate('/', {replace: true});
     }
 
     if (!isRigthPath) {
