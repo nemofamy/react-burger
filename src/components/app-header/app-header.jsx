@@ -3,8 +3,7 @@ import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import { BurgerIcon, ListIcon, ProfileIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './app-header.module.css';
 import Button from './button';
-import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 
 
 function AppHeader () {
@@ -15,7 +14,7 @@ function AppHeader () {
 
     return (
         <header className={`${styles.header} mt-10 mr-10 ml-10`}>
-            <div className={styles.logo}><Logo /></div>
+            <div className={styles.logo}><Link to={'/'}><Logo /></Link></div>
             <nav className={styles.navigation}>
                 <Button to='/' label='Конструктор'>
                     <BurgerIcon type={defineIconType('/')} />
@@ -29,10 +28,6 @@ function AppHeader () {
             </nav>      
         </header>
     );
-}
-
-AppHeader.propTypes = {
-    activePage: PropTypes.string.isRequired
 }
 
 export default AppHeader;

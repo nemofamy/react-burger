@@ -40,7 +40,7 @@ const ProfilePage = () => {
                 <nav className={styles.navigation}>
                     <ProfileLink to={'/profile'}>Профиль</ProfileLink>
                     <ProfileLink to={'/order-feed'}>История заказов</ProfileLink>
-                    <ProfileLink to={'/'}><p onClick={exit}>Выход</p></ProfileLink>
+                    <ProfileLink to={'/'}><span onClick={exit}>Выход</span></ProfileLink>
                     <p className='text text_type_main-default text_color_inactive mt-20'>В этом разделе вы можете изменить свои персональные данные</p>
                 </nav>
                 <div className={`mb-6`}>
@@ -49,7 +49,6 @@ const ProfilePage = () => {
                         placeholder={'Имя'}
                         value={name}
                         onChange={e => setName(e.target.value)}
-                        icon={'EditIcon'}
                         name={'name'}
                         error={false}
                         errorText={'Ошибка'}
@@ -62,7 +61,6 @@ const ProfilePage = () => {
                         placeholder={'Логин'}
                         value={email}
                         onChange={e => setEmail(e.target.value)}
-                        icon={'EditIcon'}
                         name={'login'}
                         error={false}
                         errorText={'Ошибка'}
@@ -75,7 +73,6 @@ const ProfilePage = () => {
                         placeholder={'Пароль'}
                         value={pass}
                         onChange={(e => setPass(e.target.value))}
-                        icon={'EditIcon'}
                         name={'password'}
                         error={false}
                         errorText={'Ошибка'}
