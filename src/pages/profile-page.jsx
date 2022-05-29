@@ -21,26 +21,27 @@ const ProfilePage = () => {
     const [email, setEmail] = useState(userEmail);
     const [pass, setPass] = useState('');
 
+    const saveChanges = (e) => {
+        e.preventDefault();
+        if (name && email) {
+            dispatch(patchUser(name, email, pass));
+            setPass('');
+        } 
+    }
+
     const resetChanges = () => {
         setName(userName);
         setEmail(userEmail);
         setPass('');
     }
 
-    const saveChanges = () => {
-        if (name && email) {
-            dispatch(patchUser(name, email, pass));
-            setPass('');
-        } 
-    }
-    
     return (
         <div className={styles.wrap}>
-            <div className={styles.form}>
+            <form onSubmit={saveChanges}>
                 <nav className={styles.navigation}>
                     <ProfileLink to={'/profile'}>Профиль</ProfileLink>
                     <ProfileLink to={'/order-feed'}>История заказов</ProfileLink>
-                    <ProfileLink to={'/'}><span onClick={exit}>Выход</span></ProfileLink>
+                    <ProfileLink to={'/'}><p onClick={exit}>Выход</p></ProfileLink>
                     <p className='text text_type_main-default text_color_inactive mt-20'>В этом разделе вы можете изменить свои персональные данные</p>
                 </nav>
                 <div className={`mb-6`}>
@@ -80,14 +81,14 @@ const ProfilePage = () => {
                     />
                 </div>
                 <div className={styles.buttons}>
-                    <Button type="primary" size="small" onClick={resetChanges}>
+                    <Button htmlType="reset" type="primary" size="small" onClick={resetChanges}>
                         Отменить
                     </Button>
-                    <Button type="primary" size="small" onClick={saveChanges}>
+                    <Button htmlType="submit" type="primary" size="small">
                         Сохранить
                     </Button>
                 </div>
-            </div>
+            </form>
         </div>
     );
 }

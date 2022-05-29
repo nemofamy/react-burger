@@ -14,7 +14,8 @@ const RegisterPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('password');
     
-    const registerAttempt = () => {
+    const registerAttempt = (e) => {
+        e.preventDefault();
         dispatch(registerRequest(name, email, password));
         setName('');
         setEmail('');
@@ -28,7 +29,7 @@ const RegisterPage = () => {
     },[user]); 
     return (
         <div className={styles.wrap}>
-            <div className={styles.form}>
+            <form onSubmit={registerAttempt}>
                 <h1 className={`${styles.header} text text_type_main-medium mb-3`}>Регистрация</h1>
                 <div className={`mb-6`}>
                     <Input
@@ -59,11 +60,11 @@ const RegisterPage = () => {
                 <div className={`mb-6`}>
                     <PasswordInput onChange={e => setPassword(e.target.value)} name={'password'} />
                 </div>
-                <Button onClick={registerAttempt} type="primary" size="medium">
+                <Button type="primary" size="medium">
                     Зарегистрироваться
                 </Button>
                 <p className={styles.note}>Уже зарегистрированы? <Link className={styles.link} to={'../login'}>Войти</Link></p>
-            </div>
+            </form>
         </div>    
     );
 }

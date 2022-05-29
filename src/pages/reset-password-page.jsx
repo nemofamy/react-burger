@@ -19,7 +19,8 @@ const ResetPasswordPage = () => {
         setPassword(e.target.value);
     };
 
-    const onButtonClick = async () => {
+    const onFormSubmit = async (e) => {
+        e.preventDefault();
         passwordResetStep2(password, token);
         navigate('/', {replace: true});
     }
@@ -32,7 +33,7 @@ const ResetPasswordPage = () => {
 
     return (
         <div className={styles.wrap}>
-            <div className={styles.form}>
+            <form onSubmit={onFormSubmit}>
                 <h1 className={`${styles.header} text text_type_main-medium mb-3`}>Восстановление пароля</h1>
                 <div className={`mb-6`}>
                     <Input
@@ -59,11 +60,11 @@ const ResetPasswordPage = () => {
                         size={'default'}
                     />
                 </div>
-                <Button onClick={onButtonClick} type="primary" size="medium">
+                <Button type="primary" size="medium">
                     Сохранить
                 </Button>
                 <p className={styles.note}>Вспомнили пароль? <Link className={styles.link} to={'../login'}>Войти</Link></p>
-            </div>
+            </form>
         </div>    
     );
 }
