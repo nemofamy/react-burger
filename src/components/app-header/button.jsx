@@ -18,7 +18,8 @@ function Button ({children, to, ...props}) {
 }
 
 Button.propTypes = {
-
+    children: PropTypes.node,
+    to: PropTypes.string
 }
 
 export default Button;

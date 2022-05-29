@@ -7,7 +7,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const LoginPage = () => {
     const user = useSelector(state => state.auth.user.name);
-    const inputRef = useRef(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
@@ -37,13 +36,13 @@ const LoginPage = () => {
                         icon={undefined}
                         name={'email'}
                         error={false}
-                        ref={inputRef}
                         errorText={'Ошибка'}
                         size={'default'}
+                        value={email}
                     />
                 </div>
                 <div className={`mb-6`}>
-                    <PasswordInput onChange={e => setPassword(e.target.value)} name={'password'} />
+                    <PasswordInput value={password} onChange={e => setPassword(e.target.value)} name={'password'} />
                 </div>
                 <Button onClick={tryAuth} type="primary" size="medium">
                     Войти

@@ -2,6 +2,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 32px 8px;
+    overflow-x: hidden;
 }
 
 .section_header {

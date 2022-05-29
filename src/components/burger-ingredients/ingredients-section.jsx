@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import styles from './ingredients-section.module.css';
 import PropTypes from 'prop-types';
 
-const IngredientsSection = (props) => {
+function IngredientsSection(props) {
     const { refName, name, categoryId } = props;
     const data = useSelector(store => store.getData.data);
 
