@@ -4,12 +4,15 @@ import ingredientShape from '../../utils/types';
 import { useDrag } from "react-dnd";
 import { useDispatch } from 'react-redux';
 import { OPEN_INGREDIENT_MODAL } from '../../services/actions/modal_ingredient';
+import { useNavigate } from 'react-router-dom';
 
 function IngredientItem (props) {
+    const navigate = useNavigate();
     const { type, carbohydrates, proteins, fat, calories, name, image, image_large, price, amount, _id } = props.dataset;
     const dispatch = useDispatch();
 
     const openModal = () => {
+        navigate(`/ingredients/:${_id}`);
         dispatch({
             type: OPEN_INGREDIENT_MODAL,
             paiload: {

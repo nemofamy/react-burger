@@ -1,0 +1,13 @@
+.wrap {
+    display: flex;
+}
+
+.ingredient {
+    margin: auto;
+    margin-top: 100px;
+    width: 600px;
+}
+
+h1 {
+    text-align: center;
+}

@@ -1,10 +1,9 @@
-import React from 'react';
 import SmallInfoBlock from './small-info-block';
 import PropTypes from 'prop-types';
 import styles from './ingredient-details.module.css';
 
 function IngredientDetails(props) {
-    const { name, image_large, calories, proteins, fat, carbohydrates} = props;
+    const { name, image_large, calories, proteins, fat, carbohydrates } = props;
     return (
         <>
             <img alt={name} src={image_large} />

@@ -5,8 +5,9 @@ import { useDispatch } from 'react-redux';
 import { REMOVE_INGREDIENT_IN_CONCTRUCTOR, CHANGE_ELEMENT_ORDER } from "../../services/actions/burger-constructor";
 import { INGREDIENT_AMOUNT_DECREASE } from '../../services/actions/get-data';
 import  styles  from './burger-card.module.css';
+import PropTypes from 'prop-types';
 
-const BurgerCard = (props) => {
+function BurgerCard(props) {
 
     const index = props.index;
     const { uuid, _id, name, price, image } = props.element;
@@ -71,6 +72,17 @@ const BurgerCard = (props) => {
             </div>
         </div>
     );
+}
+
+BurgerCard.propTypes = {
+    index: PropTypes.number.isRequired,
+    element: PropTypes.shape({
+        uuid: PropTypes.string.isRequired, 
+        _id: PropTypes.string.isRequired, 
+        name: PropTypes.string.isRequired, 
+        price: PropTypes.number.isRequired, 
+        image: PropTypes.string.isRequired
+    })
 }
 
 export default BurgerCard;

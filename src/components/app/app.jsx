@@ -1,15 +1,28 @@
 import React from 'react';
-import styles from './app.module.css';
-import AppHeader from '../app-header/app-header';
-import BurgerConstructor from '../burger-constructor/burger-constructor';
-import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import { getInitialData } from '../../services/actions/get-data';
 import { useDispatch } from 'react-redux';
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { Routes, Route, Link } from 'react-router-dom';
+import Layout from '../../pages/layout';
+import LoginPage from '../../pages/login-page';
+import HomePage from '../../pages/home-page';
+import RegisterPage from '../../pages/register-page';
+import ForgotPasswordPage from '../../pages/forgot-password-page';
+import ResetPasswordPage from '../../pages/reset-password-page';
+import ProfilePage from '../../pages/profile-page';
+import IngredientPage from '../../pages/ingredient-page';
+import OrderFeedPage from '../../pages/order-feed-page';
+import NotFoundPage from '../../pages/not-found-page';
+import ProtectedRoute from '../protected-route/protected-route';
+import { getUserData } from '../../services/actions/auth';
+import { useSelector } from 'react-redux';
 
 function App() {
+   const isModalVisible = useSelector(store => store.modalIngredient.isVisible);
    const dispatch = useDispatch();
+
+   React.useEffect(() => {
+      dispatch(getUserData())
+   }, [dispatch]);
 
    React.useEffect(() => {
       dispatch(getInitialData());
@@ -17,13 +30,47 @@ function App() {
 
    return (
     <>
-      <AppHeader activePage="Конструктор" />
-      <DndProvider backend={HTML5Backend}>
-         <main className={styles.app_main_content}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-         </main>
-      </DndProvider>
+      <Routes>
+         <Route path='/' element={<Layout />}>
+            <Route index element={<HomePage />} />
+            <Route path='login' element={
+               <ProtectedRoute needAuth={false}>
+                  <LoginPage />
+               </ProtectedRoute>     
+            } />
+            <Route path='register' element={
+               <ProtectedRoute needAuth={false}>
+                  <RegisterPage />
+               </ProtectedRoute>  
+            } />
+            <Route path='forgot-password' element={
+               <ProtectedRoute needAuth={false}>
+                  <ForgotPasswordPage />     
+               </ProtectedRoute>
+            } />
+            <Route path='reset-password' element={
+               <ProtectedRoute needAuth={false}>
+                  <ResetPasswordPage />
+               </ProtectedRoute>
+            } />
+            <Route path='profile' element={
+               <ProtectedRoute needAuth={true}>
+                  <ProfilePage />
+               </ProtectedRoute>
+            } />
+            <Route path='order-feed' element={
+               <ProtectedRoute needAuth={true}>
+                  <OrderFeedPage />
+               </ProtectedRoute>
+            } />
+            <Route path='/ingredients/:id' element={
+               isModalVisible ? <HomePage /> : <IngredientPage />
+            } /> 
+
+            <Route path='*' element={<NotFoundPage />} />
+            
+         </Route>
+      </Routes>
     </>
    );
 }
