@@ -4,7 +4,7 @@ import styles from './small-info-block.module.css';
 
 interface ISmallInfoBlock {
     header: string;
-    text: string;
+    text: number;
 }
 
 const SmallInfoBlock: FC<ISmallInfoBlock> = (props) => {

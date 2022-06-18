@@ -1,8 +1,17 @@
 import SmallInfoBlock from './small-info-block';
-import PropTypes from 'prop-types';
 import styles from './ingredient-details.module.css';
+import { FC } from 'react';
 
-function IngredientDetails(props) {
+interface IIngredientDetails {
+    name: string;
+    image_large: string;
+    calories: number;
+    proteins: number;
+    fat: number;
+    carbohydrates: number;
+}
+
+const IngredientDetails: FC<IIngredientDetails> = (props) => {
     const { name, image_large, calories, proteins, fat, carbohydrates } = props;
     return (
         <>
@@ -18,13 +27,6 @@ function IngredientDetails(props) {
     );
 }
 
-IngredientDetails.propTypes = {
-    name: PropTypes.string.isRequired,
-    image_large: PropTypes.string.isRequired,
-    calories: PropTypes.number.isRequired,
-    proteins: PropTypes.number.isRequired,
-    fat: PropTypes.number.isRequired,
-    carbohydrates: PropTypes.number.isRequired
-}
+
 
 export default IngredientDetails;
