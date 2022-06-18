@@ -1,27 +1,30 @@
 import IngredientItem from './ingredient-item';
 import { useSelector } from 'react-redux';
 import styles from './ingredients-section.module.css';
-import PropTypes from 'prop-types';
+import { FC } from 'react';
+import { IIngedientShape } from '../../utils/types';
 
-function IngredientsSection(props) {
+interface IIngredientsSection {
+    name: string;
+    categoryId: string;
+    refName: object;
+};
+
+const IngredientsSection: FC<IIngredientsSection> = (props) => {
     const { refName, name, categoryId } = props;
-    const data = useSelector(store => store.getData.data);
+    const storeData = useSelector<any>(store => store.getData.data);
+    const data = storeData as Array<IIngedientShape>;
 
     return (
-        <section className={`${styles.dishtype_section} pb-10`} ref={refName}>
+        <section className={`${styles.dishtype_section} pb-10`} ref={refName as React.LegacyRef<HTMLElement> | undefined}>
             <h3 id={categoryId} className={`${styles.section_header} text text_type_main-medium`}>{name}</h3>
-            { 
+            {   
+                
                 data.map((ingredient) =>
                 (ingredient.type === categoryId && <IngredientItem key={ingredient._id} dataset={ingredient}/>))
             }
         </section>
     );
-}
-
-IngredientsSection.propTypes = {
-    name: PropTypes.string.isRequired,
-    categoryId: PropTypes.string.isRequired,
-    refName: PropTypes.object.isRequired
 }
 
 export default IngredientsSection;
