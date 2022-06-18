@@ -1,7 +1,7 @@
 import React from 'react';
 import { getInitialData } from '../../services/actions/get-data';
 import { useDispatch } from 'react-redux';
-import { Routes, Route, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Layout from '../../pages/layout';
 import LoginPage from '../../pages/login-page';
 import HomePage from '../../pages/home-page';
@@ -17,8 +17,8 @@ import { getUserData } from '../../services/actions/auth';
 import { useSelector } from 'react-redux';
 
 function App() {
-   const isModalVisible = useSelector(store => store.modalIngredient.isVisible);
-   const dispatch = useDispatch();
+   const isModalVisible = useSelector<any>(store => store.modalIngredient.isVisible);
+   const dispatch = useDispatch<any>();
 
    React.useEffect(() => {
       dispatch(getUserData())

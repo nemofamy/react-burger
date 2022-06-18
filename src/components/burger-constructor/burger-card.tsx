@@ -1,13 +1,25 @@
-import { useRef } from 'react';
+import React, { useRef, FC } from 'react';
 import { useDrop, useDrag } from "react-dnd";
 import { DragIcon, ConstructorElement } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from 'react-redux';
 import { REMOVE_INGREDIENT_IN_CONCTRUCTOR, CHANGE_ELEMENT_ORDER } from "../../services/actions/burger-constructor";
 import { INGREDIENT_AMOUNT_DECREASE } from '../../services/actions/get-data';
 import  styles  from './burger-card.module.css';
-import PropTypes from 'prop-types';
 
-function BurgerCard(props) {
+interface IElement {
+    uuid: string;
+    _id: string;
+    name: string;
+    price: number;
+    image: string;
+}
+
+interface IBurgerCard {
+    index: number;
+    element: IElement;
+}
+
+const BurgerCard: FC<IBurgerCard> = (props) => {
 
     const index = props.index;
     const { uuid, _id, name, price, image } = props.element;
@@ -22,13 +34,14 @@ function BurgerCard(props) {
         })
     });
 
-    const [{isHover}, drop] = useDrop({
+    const [{ isHover }, drop] = useDrop({
         accept: 'constructorCard',
         collect: monitor => ({
             isHover: monitor.isOver(),
         }),
-        drop (item) {
-            const dragIndex = item.index
+        drop(item) {
+            const burgerCard = item as IBurgerCard;
+            const dragIndex = burgerCard.index;
             const hoverIndex = index;
                 dispatch({
                         type: CHANGE_ELEMENT_ORDER,
@@ -40,31 +53,41 @@ function BurgerCard(props) {
         }
     });
 
-    const ref = useRef(null);
+    const ref = useRef<HTMLElement>(null);
     const dragDropRef = drag(drop(ref));
 
-    const onClick = (e) => {
-        if (e.target.parentElement.parentElement.classList.contains('constructor-element__action')) {
+    const onClick = (e: React.SyntheticEvent) => {
+        const el = e.target as HTMLElement;
+            if (
+                el !== null && 
+                el.parentElement !== null &&
+                el.parentElement.parentElement !== null &&
+                el.parentElement.parentElement.classList.contains('constructor-element__action')
+            ) {
             dispatch({
                 type: REMOVE_INGREDIENT_IN_CONCTRUCTOR,
                 payload: e.currentTarget.id
             });
+
+            const { _id } = e.currentTarget.attributes as NamedNodeMap & {
+                _id: { value: string };
+            };
+            const { value } =  _id;
             dispatch({
                 type: INGREDIENT_AMOUNT_DECREASE,
                 payload: {
-                    _id: e.currentTarget.attributes._id.value
+                    _id: value
                 }
             });
         }
-
     }
     return (
-        <div 
-            ref={dragDropRef}
-            id={uuid} 
-            _id={_id} 
-            className={`${styles.burger_element} ${ isDrag && styles.draging_card}`} 
-            onClick={onClick} 
+        <div
+            {...props.element}
+            ref = {dragDropRef as React.LegacyRef<HTMLDivElement> | undefined}
+            id={uuid}
+            className={`${styles.burger_element} ${ isDrag && styles.draging_card}`}
+            onClick={onClick}
             draggable>
             <DragIcon type="primary" />
             <div className={`${styles.card_wrap} ${isHover && styles.hover_card}`}>
@@ -74,15 +97,6 @@ function BurgerCard(props) {
     );
 }
 
-BurgerCard.propTypes = {
-    index: PropTypes.number.isRequired,
-    element: PropTypes.shape({
-        uuid: PropTypes.string.isRequired, 
-        _id: PropTypes.string.isRequired, 
-        name: PropTypes.string.isRequired, 
-        price: PropTypes.number.isRequired, 
-        image: PropTypes.string.isRequired
-    })
-}
+
 
 export default BurgerCard;

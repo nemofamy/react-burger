@@ -5,10 +5,9 @@ import styles from './app-header.module.css';
 import Button from './button';
 import { useLocation, Link } from 'react-router-dom';
 
-
 function AppHeader () {
     const location = useLocation();
-    const defineIconType = (path) => {
+    const defineIconType = (path: string) => {
         return location.pathname === path ? "primary" : "secondary";
     }
 
