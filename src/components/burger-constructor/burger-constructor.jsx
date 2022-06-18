@@ -14,7 +14,7 @@ import BurgerCard from './burger-card';
 import { OPEN_ORDER_MODAL, CLOSE_ORDER_MODAL } from '../../services/actions/modal-order';
 import getOrderData from '../../services/actions/modal-order';
 import { v4 as uuidv4 } from 'uuid';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function BurgerConstructor () {

@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import styles from './small-info-block.module.css';
-import PropTypes from 'prop-types';
 
-function SmallInfoBlock(props) {
+
+interface ISmallInfoBlock {
+    header: string;
+    text: string;
+}
+
+const SmallInfoBlock: FC<ISmallInfoBlock> = (props) => {
     const { header, text } = props;
 
     return (
@@ -11,11 +16,6 @@ function SmallInfoBlock(props) {
             <p className="text text_type_digits-default text_color_inactive">{text}</p>
         </div>    
     );
-}
-
-SmallInfoBlock.propsType = {
-    header: PropTypes.string.isRequired,
-    text: PropTypes.number.isRequired
 }
 
 export default SmallInfoBlock;
