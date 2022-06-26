@@ -14,7 +14,7 @@ export const PASSWORD_RESET_SUCCESS = 'PASSWORD_RESET_SUCCESS';
 export const TOKEN_UPDATE_SUCCESS ='TOKEN_UPDATE_SUCCESS';
 
 export const tokenUpdate = () => {
-    return async (dispatch) => {
+    return async (dispatch: any) => {
         console.log('tokenUpdate');
         dispatch({type: AUTH_REQUEST});
         try {
@@ -49,8 +49,8 @@ export const tokenUpdate = () => {
     }
 }
 
-export const passwordResetStep2 = (password, token) => {
-    return async (dispatch) => {
+export const passwordResetStep2 = (password: string, token: string) => {
+    return async (dispatch: any) => {
         dispatch({type: AUTH_REQUEST});
         try {
             const res = await fetch(`${API_ADDRESS}password-reset`, {
@@ -79,8 +79,8 @@ export const passwordResetStep2 = (password, token) => {
     }
 }
 
-export const passwordReset = (value) => {
-    return async (dispatch) => {
+export const passwordReset = (value: string) => {
+    return async (dispatch:any) => {
         dispatch({type: AUTH_REQUEST});
         try {
             const res = await fetch(`${API_ADDRESS}password-reset`, {
@@ -109,7 +109,7 @@ export const passwordReset = (value) => {
 }
 
 export const getUserData = () => {
-    return async (dispatch) => {
+    return async (dispatch: any) => {
         dispatch({type: AUTH_REQUEST});
         try {
             await tokenUpdate();
@@ -132,8 +132,9 @@ export const getUserData = () => {
         }
     }
 }
-export const patchUser = (name, email, password) => {
-    return async (dispatch) => {
+
+export const patchUser = (name: string, email: string, password: string) => {
+    return async (dispatch: any) => {
         dispatch({type: AUTH_REQUEST});
         try {
             const res = await fetch(`${API_ADDRESS}auth/user`, {
@@ -168,7 +169,7 @@ export const patchUser = (name, email, password) => {
 }
 
 export const logoutRequest = () => {
-    return async (dispatch) => {
+    return async (dispatch: any) => {
         dispatch({type: AUTH_REQUEST});
         try {
             const res = await fetch(`${API_ADDRESS}auth/logout`, {
@@ -198,8 +199,8 @@ export const logoutRequest = () => {
     }
 }
 
-export const loginRequest = (email, password) => {
-    return async (dispatch) => {
+export const loginRequest = (email: string, password: string) => {
+    return async (dispatch: any) => {
         dispatch({type: AUTH_REQUEST});
         try {
             const res = await fetch(`${API_ADDRESS}auth/login`, {

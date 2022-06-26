@@ -6,7 +6,7 @@ import {
     INGREDIENT_AMOUNT_DECREASE,
     BUN_AMOUNT_CHANGE,
     CONSTRUCTOR_DATA_RESET 
-    } from "../actions/get-data.jsx";
+    } from "../actions/get-data";
 
 
 const initialState = {

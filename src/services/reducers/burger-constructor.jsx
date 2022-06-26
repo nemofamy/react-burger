@@ -4,7 +4,7 @@ import {
     BUN_SELECTOR,
     CHANGE_ELEMENT_ORDER
 } from "../actions/burger-constructor";
-import { CONSTRUCTOR_DATA_RESET } from "../actions/get-data.jsx";
+import { CONSTRUCTOR_DATA_RESET } from "../actions/get-data";
 
 const initialState = {
     data: [],

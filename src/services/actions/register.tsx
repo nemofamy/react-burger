@@ -7,8 +7,8 @@ import { setCookie } from '../utilities/set-cookie';
 export const REGISTER_REQUEST = 'REGISTER_REQUEST';
 export const REGISTER_ERROR = 'REGISTER_ERROR';
 
-export const registerRequest = (name, email, password) => {
-    return async (dispatch) => {
+export const registerRequest = (name:string, email:string, password:string) => {
+    return async (dispatch:any) => {
         dispatch({type: REGISTER_REQUEST});
         try {
             const res = await fetch(`${API_ADDRESS}auth/register`, {

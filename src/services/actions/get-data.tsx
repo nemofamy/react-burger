@@ -12,7 +12,7 @@ export const CONSTRUCTOR_DATA_RESET = 'CONSTRUCTOR_DATA_RESET';
 export const API_ADDRESS = 'https://norma.nomoreparties.space/api/';
 
 export const getInitialData = () => {
-   return async (dispatch) => {
+   return async (dispatch: any) => {
       dispatch({type: GET_DATA_REQUEST});
       try {
         const res = await fetch(`${API_ADDRESS}ingredients`);
